@@ -3,7 +3,7 @@
 ### Upload your data
 
 - Navigate your browser to ```https://your-firebase.firebaseio.com/dataDesign```.
-- Import ```1-data-design/data.json``` to ```https://your-firebase.firebaseio.com/dataDesign```.
+- Import ```3-data-design/data.json``` to ```https://your-firebase.firebaseio.com/dataDesign```.
 
 ### Deep Nesting (often a bad idea)
 

@@ -1,0 +1,114 @@
+<html>
+
+<head>
+    <title>Firebase Endpoints Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+
+<body class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header">
+                <h1>Twitter Clone</h1>
+            </div>
+        </div>
+        <div class="col-xs-12">
+            <div id="user-select"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="user-select"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="user-timeline" style="padding: 2rem 0;"></div>
+        </div>
+    </div>
+    <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/template" id="user-select-template">
+        <div class="input-group">
+            <select class="form-control" class="users">
+                <option value="">Pick a user to impersonate</option>
+                <% _.each(users, function(user, key) {%>
+                    <option value="<%= key %>">
+                        <%= user.name %>
+                    </option>
+                    <% }); %>
+            </select>
+        </div>
+    </script>
+    <script type="text/template" id="user-timeline-template">
+        <ul class="list-group">
+            <% _.each(timeline, function(timeline) {%>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading"><%= timeline.user.name %> <small>@<%= timeline.user.username %></small></h4>
+                    <p class="list-group-item-text">
+                        <%= timeline.text %>
+                    </p>
+                </li>
+                <% }); %>
+        </ul>
+    </script>
+    <script type="text/javascript">
+    (function() {
+        /*
+         * 1. Edit the firebaseRoot variable to reference your Firebase 
+         */
+        var firebaseRoot = "https://demos-firebase.firebaseio.com/twitterClone/",
+            usersRef = new Firebase(firebaseRoot + 'users'),
+            userObjectsRef = new Firebase(firebaseRoot + 'userObjects');
+
+        var setUsers = function(users) {
+            console.info('called setUsers with these users:', users);
+            $('#user-select').html(_.template($('#user-select-template').html())({
+                users: users
+            })).find('select').on('change', handleUserChange).val(Object.keys(users)[0]).trigger('change');
+
+        };
+
+        var setTimeline = function(timeline) {
+            console.info('called setTimeline with this timelne:', timeline);
+            $('#user-timeline').html(_.template($('#user-timeline-template').html())({
+                timeline: timeline
+            }));
+
+        };
+
+
+        /*
+         * 1. Query the data for /twitterClone/users
+         * 2. Call the setUsers function with the resulting data
+         */
+        usersRef.once('value', function(snap) {
+            setUsers(snap.val());
+        });
+
+        var handleUserChange = function(e) {
+            var userKey = $(e.target).val();
+            if (userKey) {
+
+                /*
+                 * 1. Query the data for /twitterClone/userObjects/timeline/***userKey***
+                 * 2. Call the setTimeline function with the resulting data
+                 */
+                userObjectsRef.child('timeline').child(userKey).once('value', function(snap) {
+                    setTimeline(snap.val());
+                });
+
+            } else {
+                setTimeline({});
+            }
+
+
+        };
+
+    })();
+    </script>
+</body>
+
+</html>
