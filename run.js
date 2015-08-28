@@ -3,39 +3,138 @@ var _ = require('underscore'),
     firebase = require('firebase'),
     faker = require('faker'),
     Q = require('q'),
-    fs = require('fs-extra');
+    fs = require('fs-extra'),
+    axios = require('axios'),
+    slug = require('slug');
 
 // Environment
 var environment = require('./environment'),
     root = environment.firebaseRoot,
     rootRef = new firebase(root),
-    promises = [];
+    promises = [],
+    fakeUsers,
+    getFakeUsers = function() {
+        return _.clone(fakeUsers);
+    },
+    getUniqueFakeUsers = function(i) {
+        var fakes = getFakeUsers(),
+            length = fakes.length,
+            result = [];
+
+        while (i--) {
+            result.push(fakes[_.random(0, length - 1)]);
+        }
+
+        return result;
+    };
+
+// Create fake Star Wars data
+var createFakeStarWarsData = function() {
+    var characters = [],
+        promises = [],
+        i = 10,
+        swapiRoot = "http://swapi.co/api/",
+        getCharacterData = function(i) {
+            i += 1;
+            return axios.get(swapiRoot + 'people/' + i + '/').then(function(res) {
+                var character = res.data;
+                character.email = slug(character.name) + '@hotmail.com';
+                characters.push(character);
+                return Q();
+            });
+        },
+        getHomeworldData = function(i) {
+            return axios.get(characters[i].homeworld).then(function(res) {
+                var character = characters[i];
+                character.homeworld = res.data;
+                character.posts = [{
+                    sentence: "Hello! My name is " + character.name + ". I hail from " + character.homeworld.name + "."
+                }, {
+                    sentence: "I have a mass of  " + character.mass + ". My homeworld's climate is " + character.homeworld.climate + "."
+                }, {
+                    sentence: "Please email me at " + character.email + ". You'll know me by my " + character.skin_color + " skin color."
+                }];
+                return Q();
+            });
+        };
+
+    while (i--) {
+        promises.push(getCharacterData(i));
+    }
+
+    return Q.all(promises).then(function() {
+        var promises = [],
+            i = 10;
+
+        while (i--) {
+            promises.push(getHomeworldData(i));
+        }
+
+        return Q.all(promises);
+    }).then(function() {
+        var deferred = Q.defer(),
+            payload = {
+                users: characters
+            };
+
+        fs.writeJSON('./data/swapi.json', payload, function(err) {
+            return err ? deferred.reject(err) : deferred.resolve(payload);
+        });
+
+        return deferred.promise;
+    }).then(function(payload) {
+        var deferred = Q.defer(),
+            payloadRoot = rootRef.child('swapi').set(payload, function(err) {
+                return err ? deferred.reject(err) : deferred.resolve(payload);
+            });
+        return deferred.promise;
+    });
+};
+
+// var starWarsPromise = createFakeStarWarsData()
+// promises.push(starWarsPromise);
+
+// starWarsPromise.then(function(payload) {
+//     console.log(payload)
+//     fakeUsers = payload.users;
+//     console.log('Star Wars data created');
+// });
+
+var starWarsPromise = (function() {
+    var deferred = Q.defer();
+
+    fs.readJSON('./data/swapi.json', function(err, starWarsData) {
+        if (err) {
+            deferred.reject(err);
+        } else {
+            fakeUsers = starWarsData.users;
+            deferred.resolve(fakeUsers);
+        }
+    });
+
+    return deferred.promise;
+})();
+
+
 
 // Endpoint data
 var createEndpointData = function() {
-    var i = 10,
-        fakes = [],
-        endpointsRef = rootRef.child('endpoints'),
+    var endpointsRef = rootRef.child('endpoints'),
         usersRef = endpointsRef.child('users'),
         promises = [],
         deferred = Q.defer();
 
     usersRef.remove(function() {
-        while (i--) {
-            fakes.push(faker.helpers.createCard());
-        }
-
-        _.each(fakes, function(fake) {
+        _.each(getFakeUsers(), function(fake) {
             var fakeRef = usersRef.push(),
                 maxUnix = moment().unix(),
                 fakeDeferred = Q.defer();
 
             promises.push(fakeDeferred.promise);
 
-            fakeRef.set({
-                name: fake.name,
-                email: fake.email
-            }, function(err) {
+            fake = _.pick(fake, 'posts', 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color');
+
+            fakeRef.set(fake, function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
 
@@ -54,8 +153,6 @@ var createEndpointData = function() {
 
         });
 
-        console.log('promises length', promises.length);
-
         Q.all(promises).then(function() {
             endpointsRef.on('value', function(snap) {
                 fs.writeJSON('./1-endpoints/data.json', snap.val(), function(err) {
@@ -70,7 +167,7 @@ var createEndpointData = function() {
     return deferred.promise;
 };
 
-var endpointPromise = createEndpointData();
+var endpointPromise = starWarsPromise.then(createEndpointData);
 promises.push(endpointPromise);
 
 endpointPromise.then(function() {
@@ -78,9 +175,7 @@ endpointPromise.then(function() {
 });
 
 var createDataDesignData = function() {
-    var i = 10,
-        fakes = [],
-        dataDesignRef = rootRef.child('dataDesign'),
+    var dataDesignRef = rootRef.child('dataDesign'),
         deepNestingRef = dataDesignRef.child('deepNesting'),
         deepNestingUsersRef = deepNestingRef.child('users'),
         shallowNestingRef = dataDesignRef.child('shallowNesting'),
@@ -91,22 +186,16 @@ var createDataDesignData = function() {
         deferred = Q.defer();
 
     dataDesignRef.remove(function() {
-        while (i--) {
-            fakes.push(faker.helpers.createCard());
-        }
 
         // Deep nesting
-        _.each(fakes, function(fake) {
+        _.each(getFakeUsers(), function(fake) {
             var fakeRef = deepNestingUsersRef.push(),
                 maxUnix = moment().unix(),
                 fakeDeferred = Q.defer();
 
             promises.push(fakeDeferred.promise);
 
-            fakeRef.set({
-                name: fake.name,
-                email: fake.email
-            }, function(err) {
+            fakeRef.set(_.pick(fake, 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
 
@@ -139,7 +228,7 @@ var createDataDesignData = function() {
         });
 
         // Shallow nesting
-        _.each(fakes, function(fake) {
+        _.each(getFakeUsers(), function(fake) {
             var fakeRef = shallowNestingUsersRef.push(),
                 maxUnix = moment().unix(),
                 fakeDeferred = Q.defer(),
@@ -184,12 +273,16 @@ var createDataDesignData = function() {
         });
 
         // Duplicate data
-        _.each(fakes, function(fake) {
+        _.each(getFakeUsers(), function(fake) {
             var fakeRef = duplicateDataUsersRef.push(),
                 maxUnix = moment().unix(),
                 fakeDeferred = Q.defer(),
                 userKey = fakeRef.key(),
-                userObjectsRef = duplicateDataRef.child('userObjects');
+                userObjectsRef = duplicateDataRef.child('userObjects'),
+                follows = getUniqueFakeUsers(5);
+
+            follows.push(fake);
+            follows = _.uniq(follows);
 
             promises.push(fakeDeferred.promise);
 
@@ -213,26 +306,27 @@ var createDataDesignData = function() {
                 });
             });
 
-            _.each(fake.posts, function(post) {
-                var postDeferred = Q.defer(),
-                    user = _.pick(faker.helpers.createCard(), 'email', 'name', 'username', 'website');
+            _.each(follows, function(followed) {
+                _.each(followed.posts, function(post) {
+                    var postDeferred = Q.defer(),
+                        user = _.pick(followed, 'email', 'name');
 
-                user.key = userObjectsRef.push().key();
+                    user.key = userObjectsRef.push().key();
 
-                promises.push(postDeferred.promise);
+                    promises.push(postDeferred.promise);
 
-                userObjectsRef.child('timeline').child(userKey).push({
-                    text: post.sentence,
-                    created: moment(_.random(0, maxUnix)).format(),
-                    user: user
-                }, function(err) {
-                    return err ? postDeferred.reject(err) : postDeferred.resolve();
+                    userObjectsRef.child('timeline').child(userKey).push({
+                        text: post.sentence,
+                        created: moment(_.random(0, maxUnix)).format(),
+                        user: user
+                    }, function(err) {
+                        return err ? postDeferred.reject(err) : postDeferred.resolve();
+                    });
                 });
             });
 
-        });
 
-        console.log('promises length', promises.length);
+        });
 
         Q.all(promises).then(function() {
             dataDesignRef.on('value', function(snap) {
@@ -248,7 +342,7 @@ var createDataDesignData = function() {
     return deferred.promise;
 };
 
-var dataDesignPromise = createDataDesignData();
+var dataDesignPromise = starWarsPromise.then(createDataDesignData);
 promises.push(dataDesignPromise);
 
 dataDesignPromise.then(function() {
@@ -256,31 +350,27 @@ dataDesignPromise.then(function() {
 });
 
 var createReadingData = function() {
-    var i = 10,
-        fakes = [],
-        readingDataRef = rootRef.child('twitterClone'),
+    var readingDataRef = rootRef.child('twitterClone'),
+        usersRef = readingDataRef.child('users'),
+        userObjectsRef = readingDataRef.child('userObjects'),
         promises = [],
         deferred = Q.defer();
 
     readingDataRef.remove(function() {
-        while (i--) {
-            fakes.push(faker.helpers.createCard());
-        }
-
-        // Duplicate data
-        _.each(fakes, function(fake) {
+        // Reading data
+        _.each(getFakeUsers(), function(fake) {
             var fakeRef = readingDataRef.child('users').push(),
                 maxUnix = moment().unix(),
                 fakeDeferred = Q.defer(),
                 userKey = fakeRef.key(),
-                userObjectsRef = readingDataRef.child('userObjects');
+                follows = getUniqueFakeUsers(5);
+
+            follows.push(fake);
+            follows = _.uniq(follows);
 
             promises.push(fakeDeferred.promise);
 
-            fakeRef.set({
-                name: fake.name,
-                email: fake.email
-            }, function(err) {
+            fakeRef.set(_.pick(fake, 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
 
@@ -297,26 +387,53 @@ var createReadingData = function() {
                 });
             });
 
-            _.each(fake.posts, function(post) {
-                var postDeferred = Q.defer(),
-                    user = _.pick(faker.helpers.createCard(), 'email', 'name', 'username', 'website');
+            _.each(follows, function(followed) {
+                var followedDeferred = Q.defer();
 
-                user.key = userObjectsRef.push().key();
+                promises.push(followedDeferred.promise);
 
-                promises.push(postDeferred.promise);
+                usersRef.orderByChild('name').equalTo(followed.name).once('value', function(snap) {
+                    if (snap.numChildren() === 1) {
+                        snap.forEach(function(childSnap) {
+                            var user = childSnap.val();
 
-                userObjectsRef.child('timeline').child(userKey).push({
-                    text: post.sentence,
-                    created: moment(_.random(0, maxUnix)).format(),
-                    user: user
-                }, function(err) {
-                    return err ? postDeferred.reject(err) : postDeferred.resolve();
+                            userObjectsRef.child('follows').child(userKey).push({
+                                key: childSnap.key(),
+                                name: user.name,
+                                email: user.email
+                            }, function (err) {
+                                return err ? followedDeferred.reject(err) : followedDeferred.resolve();
+                            });        
+                        });
+                    } else {
+                        console.warn('Number of children is wack:', snap.numChildren());
+                    }
+
+                });
+
+                
+
+                _.each(followed.posts, function(post) {
+                    var postDeferred = Q.defer(),
+                        user = _.pick(followed, 'email', 'name');
+
+                    user.key = userObjectsRef.push().key();
+
+                    promises.push(postDeferred.promise);
+
+                    userObjectsRef.child('timeline').child(userKey).push({
+                        text: post.sentence,
+                        created: moment(_.random(0, maxUnix)).format(),
+                        user: user
+                    }, function(err) {
+                        return err ? postDeferred.reject(err) : postDeferred.resolve();
+                    });
                 });
             });
 
-        });
 
-        console.log('promises length', promises.length);
+
+        });
 
         Q.all(promises).then(function() {
             readingDataRef.on('value', function(snap) {
@@ -332,7 +449,7 @@ var createReadingData = function() {
     return deferred.promise;
 };
 
-var readingDataPromise = createReadingData();
+var readingDataPromise = starWarsPromise.then(createReadingData);
 promises.push(readingDataPromise);
 
 readingDataPromise.then(function() {

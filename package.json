@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/deltaepsilon/firebase-demos#readme",
   "dependencies": {
+    "axios": "^0.5.4",
     "faker": "^3.0.1",
     "firebase": "^2.2.9",
     "fs-extra": "^0.23.1",
     "moment": "^2.10.6",
     "q": "^1.4.1",
+    "slug": "^0.9.1",
     "underscore": "^1.8.3"
   }
 }

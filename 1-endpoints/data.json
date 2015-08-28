@@ -1,182 +1,362 @@
 {
   "users": {
-    "-JxjpQjuoNs80iCQCPlV": {
-      "email": "Elmer.Hand29@gmail.com",
-      "name": "Noble Predovic",
+    "-Jxp00IKZkXR3BJVnSoA": {
+      "birth_year": "19BBY",
+      "email": "Leia-Organa@hotmail.com",
+      "eye_color": "brown",
+      "gender": "female",
+      "hair_color": "brown",
+      "height": "150",
+      "mass": "49",
+      "name": "Leia Organa",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Leia Organa. I hail from Alderaan."
+        },
+        {
+          "sentence": "I have a mass of  49. My homeworld's climate is temperate."
+        },
+        {
+          "sentence": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
       "tweets": {
-        "-JxjpQjya6iOfkZn6V4j": {
-          "created": "1970-01-05T21:40:20-07:00",
-          "text": "Et sed tenetur qui nihil."
+        "-Jxp00ISXa5Vx1VmTm8f": {
+          "created": "1970-01-04T16:17:23-07:00",
+          "text": "Hello! My name is Leia Organa. I hail from Alderaan."
         },
-        "-JxjpQjz5I2VhDNjAo8A": {
-          "created": "1970-01-06T16:24:33-07:00",
-          "text": "Unde quaerat sapiente ex ab qui aliquid sunt asperiores."
+        "-Jxp00IUIjMSOCJE6_oI": {
+          "created": "1970-01-07T03:22:22-07:00",
+          "text": "I have a mass of  49. My homeworld's climate is temperate."
         },
-        "-JxjpQjz5I2VhDNjAo8B": {
-          "created": "1970-01-12T21:17:44-07:00",
-          "text": "Quae incidunt deserunt qui culpa soluta ut et et perspiciatis."
+        "-Jxp00IVvpVsUgtSI_9-": {
+          "created": "1970-01-14T20:57:54-07:00",
+          "text": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
         }
       }
     },
-    "-JxjpQk-DTg1_HxNvzzM": {
-      "email": "Emma_Windler@gmail.com",
-      "name": "Rupert Orn",
+    "-Jxp00IWhEtI7A1iz0j4": {
+      "birth_year": "52BBY",
+      "email": "Owen-Lars@hotmail.com",
+      "eye_color": "blue",
+      "gender": "male",
+      "hair_color": "brown, grey",
+      "height": "178",
+      "mass": "120",
+      "name": "Owen Lars",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Owen Lars. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  120. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Owen-Lars@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
       "tweets": {
-        "-JxjpQk-DTg1_HxNvzzN": {
-          "created": "1970-01-03T01:37:41-07:00",
-          "text": "Dolores similique ab quia provident dolores autem et cum aut."
+        "-Jxp00IZmripfTZNmhgr": {
+          "created": "1970-01-01T13:58:38-07:00",
+          "text": "Hello! My name is Owen Lars. I hail from Tatooine."
         },
-        "-JxjpQk0Asjzsd1PnusW": {
-          "created": "1970-01-11T07:05:45-07:00",
-          "text": "Aliquid repudiandae natus reprehenderit ipsum commodi est est laborum porro."
+        "-Jxp00I_ceP5T5806AvZ": {
+          "created": "1970-01-03T20:14:34-07:00",
+          "text": "I have a mass of  120. My homeworld's climate is arid."
         },
-        "-JxjpQk0Asjzsd1PnusX": {
-          "created": "1970-01-07T16:15:16-07:00",
-          "text": "Molestiae quis ea nesciunt rerum id qui expedita quis."
+        "-Jxp00IbNvdVI2nZdSXZ": {
+          "created": "1970-01-01T00:31:22-07:00",
+          "text": "Please email me at Owen-Lars@hotmail.com. You'll know me by my light skin color."
         }
       }
     },
-    "-JxjpQk1q47GR2MJPJX4": {
-      "email": "Schuyler22@yahoo.com",
-      "name": "Emil Mraz",
+    "-Jxp00IdApNKOAyuipL-": {
+      "birth_year": "33BBY",
+      "email": "R2-D2@hotmail.com",
+      "eye_color": "red",
+      "gender": "n/a",
+      "hair_color": "n/a",
+      "height": "96",
+      "mass": "32",
+      "name": "R2-D2",
+      "posts": [
+        {
+          "sentence": "Hello! My name is R2-D2. I hail from Naboo."
+        },
+        {
+          "sentence": "I have a mass of  32. My homeworld's climate is temperate."
+        },
+        {
+          "sentence": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
+        }
+      ],
+      "skin_color": "white, blue",
       "tweets": {
-        "-JxjpQk1q47GR2MJPJX5": {
-          "created": "1970-01-13T21:27:41-07:00",
-          "text": "Maxime mollitia quas et est sed alias."
+        "-Jxp00IeScSZJIBl3sNk": {
+          "created": "1970-01-12T05:06:27-07:00",
+          "text": "Hello! My name is R2-D2. I hail from Naboo."
         },
-        "-JxjpQk2avCbd_uzkREc": {
-          "created": "1970-01-13T21:10:23-07:00",
-          "text": "Iusto eum illum ipsum reprehenderit mollitia fugiat unde id autem."
+        "-Jxp00IfD68ljjb2B1y4": {
+          "created": "1970-01-01T00:12:37-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is temperate."
         },
-        "-JxjpQk3IID6WVTsMnj9": {
-          "created": "1970-01-15T02:30:51-07:00",
-          "text": "Odit ipsa quia autem unde."
+        "-Jxp00IhjHbKSYIh-THE": {
+          "created": "1970-01-15T23:47:22-07:00",
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
         }
       }
     },
-    "-JxjpQk4iZ8oOBabFmF4": {
-      "email": "Camylle_Considine@yahoo.com",
-      "name": "Dedrick Auer",
+    "-Jxp00Iiv8BRRDLijcJP": {
+      "birth_year": "19BBY",
+      "email": "Luke-Skywalker@hotmail.com",
+      "eye_color": "blue",
+      "gender": "male",
+      "hair_color": "blond",
+      "height": "172",
+      "mass": "77",
+      "name": "Luke Skywalker",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Luke Skywalker. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  77. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
+        }
+      ],
+      "skin_color": "fair",
       "tweets": {
-        "-JxjpQk4iZ8oOBabFmF5": {
-          "created": "1970-01-03T07:01:53-07:00",
-          "text": "Ut dolor cum quidem et qui cumque illum modi."
+        "-Jxp00IjWGUIluK_uotu": {
+          "created": "1970-01-10T17:26:59-07:00",
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine."
         },
-        "-JxjpQk4iZ8oOBabFmF6": {
-          "created": "1970-01-06T00:02:05-07:00",
-          "text": "Sed sit et id incidunt ut ipsam tempora."
+        "-Jxp00IlAXAzu3DBX2v6": {
+          "created": "1970-01-16T18:28:41-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is arid."
         },
-        "-JxjpQk5JFazLkIOcyRZ": {
-          "created": "1970-01-07T15:24:44-07:00",
-          "text": "Ut possimus aspernatur rem ipsam sapiente temporibus officiis."
+        "-Jxp00ImdZXm7GLQ_3J-": {
+          "created": "1970-01-11T12:30:36-07:00",
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
         }
       }
     },
-    "-JxjpQk9b0RQvPzAlFCl": {
-      "email": "Kaci_MacGyver@gmail.com",
-      "name": "Vesta Klocko",
+    "-Jxp00ImdZXm7GLQ_3J0": {
+      "birth_year": "57BBY",
+      "email": "Obi-Wan-Kenobi@hotmail.com",
+      "eye_color": "blue-gray",
+      "gender": "male",
+      "hair_color": "auburn, white",
+      "height": "182",
+      "mass": "77",
+      "name": "Obi-Wan Kenobi",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Obi-Wan Kenobi. I hail from Stewjon."
+        },
+        {
+          "sentence": "I have a mass of  77. My homeworld's climate is temperate."
+        },
+        {
+          "sentence": "Please email me at Obi-Wan-Kenobi@hotmail.com. You'll know me by my fair skin color."
+        }
+      ],
+      "skin_color": "fair",
       "tweets": {
-        "-JxjpQkA0l3bEcHavlS-": {
-          "created": "1970-01-03T11:00:27-07:00",
-          "text": "Qui recusandae voluptatem est soluta mollitia."
+        "-Jxp00IosFP9G7S87U2_": {
+          "created": "1970-01-12T20:33:28-07:00",
+          "text": "Hello! My name is Obi-Wan Kenobi. I hail from Stewjon."
         },
-        "-JxjpQkBoXPvGkH-cq1S": {
-          "created": "1970-01-10T12:39:11-07:00",
-          "text": "Nobis quia quam ratione maiores et natus."
+        "-Jxp00IrnQ6uFE038yrY": {
+          "created": "1970-01-12T17:13:37-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is temperate."
         },
-        "-JxjpQkBoXPvGkH-cq1T": {
-          "created": "1970-01-04T00:41:42-07:00",
-          "text": "Incidunt nesciunt veniam expedita corporis et."
+        "-Jxp00IyB_6OZRIegNon": {
+          "created": "1970-01-09T06:12:23-07:00",
+          "text": "Please email me at Obi-Wan-Kenobi@hotmail.com. You'll know me by my fair skin color."
         }
       }
     },
-    "-JxjpQkClrBcoFnXWumK": {
-      "email": "Kelton.Dickinson19@gmail.com",
-      "name": "Houston D'Amore",
+    "-Jxp00IzE_XauAYtB69K": {
+      "birth_year": "41.9BBY",
+      "email": "Darth-Vader@hotmail.com",
+      "eye_color": "yellow",
+      "gender": "male",
+      "hair_color": "none",
+      "height": "202",
+      "mass": "136",
+      "name": "Darth Vader",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Darth Vader. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  136. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
+        }
+      ],
+      "skin_color": "white",
       "tweets": {
-        "-JxjpQkClrBcoFnXWumL": {
-          "created": "1970-01-07T16:51:42-07:00",
-          "text": "Autem aperiam ut quia quia suscipit voluptas."
+        "-Jxp00J07mhEyF3s1ZbG": {
+          "created": "1970-01-02T10:44:53-07:00",
+          "text": "Hello! My name is Darth Vader. I hail from Tatooine."
         },
-        "-JxjpQkEZdt2pLIdcrlY": {
-          "created": "1970-01-12T01:26:02-07:00",
-          "text": "Sunt doloribus voluptatem commodi."
+        "-Jxp00J7lW1BR8Lla-Vl": {
+          "created": "1970-01-14T19:49:18-07:00",
+          "text": "I have a mass of  136. My homeworld's climate is arid."
         },
-        "-JxjpQkEZdt2pLIdcrlZ": {
-          "created": "1970-01-01T05:28:39-07:00",
-          "text": "Suscipit nisi cupiditate omnis."
+        "-Jxp00J9IvwF9P_kddWk": {
+          "created": "1969-12-31T19:27:24-07:00",
+          "text": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
         }
       }
     },
-    "-JxjpQkGm6WhUT4eW7wd": {
-      "email": "Domenick88@yahoo.com",
-      "name": "Parker Kris Mrs.",
+    "-Jxp00JBtYb9yt10It7q": {
+      "birth_year": "unknown",
+      "email": "R5-D4@hotmail.com",
+      "eye_color": "red",
+      "gender": "n/a",
+      "hair_color": "n/a",
+      "height": "97",
+      "mass": "32",
+      "name": "R5-D4",
+      "posts": [
+        {
+          "sentence": "Hello! My name is R5-D4. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  32. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at R5-D4@hotmail.com. You'll know me by my white, red skin color."
+        }
+      ],
+      "skin_color": "white, red",
       "tweets": {
-        "-JxjpQkGm6WhUT4eW7we": {
-          "created": "1970-01-15T07:22:55-07:00",
-          "text": "Animi cupiditate voluptas nihil nostrum eos."
+        "-Jxp00JCF9JlgflNSUWw": {
+          "created": "1970-01-08T09:57:53-07:00",
+          "text": "Hello! My name is R5-D4. I hail from Tatooine."
         },
-        "-JxjpQkHzqFxpy8hHRJZ": {
-          "created": "1970-01-14T06:43:40-07:00",
-          "text": "Consequatur suscipit maiores non nulla iure tenetur omnis."
+        "-Jxp00JCF9JlgflNSUWx": {
+          "created": "1970-01-05T23:36:20-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is arid."
         },
-        "-JxjpQkInaUIcPu_BibQ": {
-          "created": "1970-01-17T01:16:59-07:00",
-          "text": "Aut unde in voluptates doloremque iusto cumque est."
+        "-Jxp00JEUOy1dO92p-F8": {
+          "created": "1970-01-10T01:52:52-07:00",
+          "text": "Please email me at R5-D4@hotmail.com. You'll know me by my white, red skin color."
         }
       }
     },
-    "-JxjpQkInaUIcPu_BibR": {
-      "email": "Brendan_Reilly@hotmail.com",
-      "name": "Carolyne Brekke",
+    "-Jxp00JFHVxT1fplskjt": {
+      "birth_year": "112BBY",
+      "email": "C-3PO@hotmail.com",
+      "eye_color": "yellow",
+      "gender": "n/a",
+      "hair_color": "n/a",
+      "height": "167",
+      "mass": "75",
+      "name": "C-3PO",
+      "posts": [
+        {
+          "sentence": "Hello! My name is C-3PO. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  75. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
+        }
+      ],
+      "skin_color": "gold",
       "tweets": {
-        "-JxjpQkJUy-XpC12O0JN": {
-          "created": "1970-01-12T05:49:00-07:00",
-          "text": "Inventore qui dolorem modi commodi tempora."
+        "-Jxp00JMtu6Fkf-AmW-5": {
+          "created": "1970-01-05T07:50:33-07:00",
+          "text": "Hello! My name is C-3PO. I hail from Tatooine."
         },
-        "-JxjpQkKSlu53_n3Pm4Z": {
-          "created": "1970-01-04T20:42:06-07:00",
-          "text": "Doloremque nobis consequatur reprehenderit modi vero ullam aliquid."
+        "-Jxp00JOd0I5eD6NuNz4": {
+          "created": "1970-01-06T01:28:23-07:00",
+          "text": "I have a mass of  75. My homeworld's climate is arid."
         },
-        "-JxjpQkLAcqjph7oVFWp": {
-          "created": "1970-01-14T09:38:34-07:00",
-          "text": "Est voluptates maiores nisi et qui recusandae atque explicabo."
+        "-Jxp00JQCuZltWOhnopT": {
+          "created": "1970-01-14T21:40:19-07:00",
+          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
         }
       }
     },
-    "-JxjpQkLAcqjph7oVFWq": {
-      "email": "Clair.Connelly44@gmail.com",
-      "name": "Jovan Denesik",
+    "-Jxp00JRl1KaGyNp440P": {
+      "birth_year": "24BBY",
+      "email": "Biggs-Darklighter@hotmail.com",
+      "eye_color": "brown",
+      "gender": "male",
+      "hair_color": "black",
+      "height": "183",
+      "mass": "84",
+      "name": "Biggs Darklighter",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Biggs Darklighter. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  84. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Biggs-Darklighter@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
       "tweets": {
-        "-JxjpQkMigMYKcuE9WUy": {
-          "created": "1970-01-16T03:00:14-07:00",
-          "text": "Magnam dolorem architecto inventore est rerum dolore ducimus ea."
+        "-Jxp00JSn_5MIeyc0qd9": {
+          "created": "1970-01-17T03:32:22-07:00",
+          "text": "Hello! My name is Biggs Darklighter. I hail from Tatooine."
         },
-        "-JxjpQkMigMYKcuE9WUz": {
-          "created": "1970-01-07T14:41:45-07:00",
-          "text": "In minus enim excepturi ipsam in tempora."
+        "-Jxp00JTxZo-8bAA8Jaa": {
+          "created": "1970-01-03T01:17:31-07:00",
+          "text": "I have a mass of  84. My homeworld's climate is arid."
         },
-        "-JxjpQkMigMYKcuE9WV-": {
-          "created": "1970-01-15T08:22:21-07:00",
-          "text": "Laudantium hic fugit eum ab voluptatibus."
+        "-Jxp00JU3kGojWr3AwMg": {
+          "created": "1970-01-03T08:00:52-07:00",
+          "text": "Please email me at Biggs-Darklighter@hotmail.com. You'll know me by my light skin color."
         }
       }
     },
-    "-JxjpQkNuD-YDYcz7l0E": {
-      "email": "Cleta.Kshlerin@gmail.com",
-      "name": "Chelsie Nikolaus",
+    "-Jxp00JU3kGojWr3AwMh": {
+      "birth_year": "47BBY",
+      "email": "Beru-Whitesun-lars@hotmail.com",
+      "eye_color": "blue",
+      "gender": "female",
+      "hair_color": "brown",
+      "height": "165",
+      "mass": "75",
+      "name": "Beru Whitesun lars",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Beru Whitesun lars. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  75. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Beru-Whitesun-lars@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
       "tweets": {
-        "-JxjpQkNuD-YDYcz7l0F": {
-          "created": "1970-01-12T10:54:57-07:00",
-          "text": "Est nobis consectetur in laborum autem eveniet velit modi."
+        "-Jxp00JVP9JIYff1UGFM": {
+          "created": "1970-01-02T21:51:16-07:00",
+          "text": "Hello! My name is Beru Whitesun lars. I hail from Tatooine."
         },
-        "-JxjpQkP__x6qmwbJJ2F": {
-          "created": "1970-01-04T20:32:55-07:00",
-          "text": "Itaque et corporis repellendus doloribus quaerat dolores nisi culpa."
+        "-Jxp00JVP9JIYff1UGFN": {
+          "created": "1970-01-08T11:27:30-07:00",
+          "text": "I have a mass of  75. My homeworld's climate is arid."
         },
-        "-JxjpQkQjQL9T-FtQC9o": {
-          "created": "1970-01-14T05:39:15-07:00",
-          "text": "Enim aut nihil cumque voluptas iure quasi ut et."
+        "-Jxp00JVP9JIYff1UGFO": {
+          "created": "1970-01-03T05:23:08-07:00",
+          "text": "Please email me at Beru-Whitesun-lars@hotmail.com. You'll know me by my light skin color."
         }
       }
     }
