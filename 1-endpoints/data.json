@@ -1,330 +1,6 @@
 {
   "users": {
-    "-Jxp00IKZkXR3BJVnSoA": {
-      "birth_year": "19BBY",
-      "email": "Leia-Organa@hotmail.com",
-      "eye_color": "brown",
-      "gender": "female",
-      "hair_color": "brown",
-      "height": "150",
-      "mass": "49",
-      "name": "Leia Organa",
-      "posts": [
-        {
-          "sentence": "Hello! My name is Leia Organa. I hail from Alderaan."
-        },
-        {
-          "sentence": "I have a mass of  49. My homeworld's climate is temperate."
-        },
-        {
-          "sentence": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
-        }
-      ],
-      "skin_color": "light",
-      "tweets": {
-        "-Jxp00ISXa5Vx1VmTm8f": {
-          "created": "1970-01-04T16:17:23-07:00",
-          "text": "Hello! My name is Leia Organa. I hail from Alderaan."
-        },
-        "-Jxp00IUIjMSOCJE6_oI": {
-          "created": "1970-01-07T03:22:22-07:00",
-          "text": "I have a mass of  49. My homeworld's climate is temperate."
-        },
-        "-Jxp00IVvpVsUgtSI_9-": {
-          "created": "1970-01-14T20:57:54-07:00",
-          "text": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
-        }
-      }
-    },
-    "-Jxp00IWhEtI7A1iz0j4": {
-      "birth_year": "52BBY",
-      "email": "Owen-Lars@hotmail.com",
-      "eye_color": "blue",
-      "gender": "male",
-      "hair_color": "brown, grey",
-      "height": "178",
-      "mass": "120",
-      "name": "Owen Lars",
-      "posts": [
-        {
-          "sentence": "Hello! My name is Owen Lars. I hail from Tatooine."
-        },
-        {
-          "sentence": "I have a mass of  120. My homeworld's climate is arid."
-        },
-        {
-          "sentence": "Please email me at Owen-Lars@hotmail.com. You'll know me by my light skin color."
-        }
-      ],
-      "skin_color": "light",
-      "tweets": {
-        "-Jxp00IZmripfTZNmhgr": {
-          "created": "1970-01-01T13:58:38-07:00",
-          "text": "Hello! My name is Owen Lars. I hail from Tatooine."
-        },
-        "-Jxp00I_ceP5T5806AvZ": {
-          "created": "1970-01-03T20:14:34-07:00",
-          "text": "I have a mass of  120. My homeworld's climate is arid."
-        },
-        "-Jxp00IbNvdVI2nZdSXZ": {
-          "created": "1970-01-01T00:31:22-07:00",
-          "text": "Please email me at Owen-Lars@hotmail.com. You'll know me by my light skin color."
-        }
-      }
-    },
-    "-Jxp00IdApNKOAyuipL-": {
-      "birth_year": "33BBY",
-      "email": "R2-D2@hotmail.com",
-      "eye_color": "red",
-      "gender": "n/a",
-      "hair_color": "n/a",
-      "height": "96",
-      "mass": "32",
-      "name": "R2-D2",
-      "posts": [
-        {
-          "sentence": "Hello! My name is R2-D2. I hail from Naboo."
-        },
-        {
-          "sentence": "I have a mass of  32. My homeworld's climate is temperate."
-        },
-        {
-          "sentence": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
-        }
-      ],
-      "skin_color": "white, blue",
-      "tweets": {
-        "-Jxp00IeScSZJIBl3sNk": {
-          "created": "1970-01-12T05:06:27-07:00",
-          "text": "Hello! My name is R2-D2. I hail from Naboo."
-        },
-        "-Jxp00IfD68ljjb2B1y4": {
-          "created": "1970-01-01T00:12:37-07:00",
-          "text": "I have a mass of  32. My homeworld's climate is temperate."
-        },
-        "-Jxp00IhjHbKSYIh-THE": {
-          "created": "1970-01-15T23:47:22-07:00",
-          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
-        }
-      }
-    },
-    "-Jxp00Iiv8BRRDLijcJP": {
-      "birth_year": "19BBY",
-      "email": "Luke-Skywalker@hotmail.com",
-      "eye_color": "blue",
-      "gender": "male",
-      "hair_color": "blond",
-      "height": "172",
-      "mass": "77",
-      "name": "Luke Skywalker",
-      "posts": [
-        {
-          "sentence": "Hello! My name is Luke Skywalker. I hail from Tatooine."
-        },
-        {
-          "sentence": "I have a mass of  77. My homeworld's climate is arid."
-        },
-        {
-          "sentence": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
-        }
-      ],
-      "skin_color": "fair",
-      "tweets": {
-        "-Jxp00IjWGUIluK_uotu": {
-          "created": "1970-01-10T17:26:59-07:00",
-          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine."
-        },
-        "-Jxp00IlAXAzu3DBX2v6": {
-          "created": "1970-01-16T18:28:41-07:00",
-          "text": "I have a mass of  77. My homeworld's climate is arid."
-        },
-        "-Jxp00ImdZXm7GLQ_3J-": {
-          "created": "1970-01-11T12:30:36-07:00",
-          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
-        }
-      }
-    },
-    "-Jxp00ImdZXm7GLQ_3J0": {
-      "birth_year": "57BBY",
-      "email": "Obi-Wan-Kenobi@hotmail.com",
-      "eye_color": "blue-gray",
-      "gender": "male",
-      "hair_color": "auburn, white",
-      "height": "182",
-      "mass": "77",
-      "name": "Obi-Wan Kenobi",
-      "posts": [
-        {
-          "sentence": "Hello! My name is Obi-Wan Kenobi. I hail from Stewjon."
-        },
-        {
-          "sentence": "I have a mass of  77. My homeworld's climate is temperate."
-        },
-        {
-          "sentence": "Please email me at Obi-Wan-Kenobi@hotmail.com. You'll know me by my fair skin color."
-        }
-      ],
-      "skin_color": "fair",
-      "tweets": {
-        "-Jxp00IosFP9G7S87U2_": {
-          "created": "1970-01-12T20:33:28-07:00",
-          "text": "Hello! My name is Obi-Wan Kenobi. I hail from Stewjon."
-        },
-        "-Jxp00IrnQ6uFE038yrY": {
-          "created": "1970-01-12T17:13:37-07:00",
-          "text": "I have a mass of  77. My homeworld's climate is temperate."
-        },
-        "-Jxp00IyB_6OZRIegNon": {
-          "created": "1970-01-09T06:12:23-07:00",
-          "text": "Please email me at Obi-Wan-Kenobi@hotmail.com. You'll know me by my fair skin color."
-        }
-      }
-    },
-    "-Jxp00IzE_XauAYtB69K": {
-      "birth_year": "41.9BBY",
-      "email": "Darth-Vader@hotmail.com",
-      "eye_color": "yellow",
-      "gender": "male",
-      "hair_color": "none",
-      "height": "202",
-      "mass": "136",
-      "name": "Darth Vader",
-      "posts": [
-        {
-          "sentence": "Hello! My name is Darth Vader. I hail from Tatooine."
-        },
-        {
-          "sentence": "I have a mass of  136. My homeworld's climate is arid."
-        },
-        {
-          "sentence": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
-        }
-      ],
-      "skin_color": "white",
-      "tweets": {
-        "-Jxp00J07mhEyF3s1ZbG": {
-          "created": "1970-01-02T10:44:53-07:00",
-          "text": "Hello! My name is Darth Vader. I hail from Tatooine."
-        },
-        "-Jxp00J7lW1BR8Lla-Vl": {
-          "created": "1970-01-14T19:49:18-07:00",
-          "text": "I have a mass of  136. My homeworld's climate is arid."
-        },
-        "-Jxp00J9IvwF9P_kddWk": {
-          "created": "1969-12-31T19:27:24-07:00",
-          "text": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
-        }
-      }
-    },
-    "-Jxp00JBtYb9yt10It7q": {
-      "birth_year": "unknown",
-      "email": "R5-D4@hotmail.com",
-      "eye_color": "red",
-      "gender": "n/a",
-      "hair_color": "n/a",
-      "height": "97",
-      "mass": "32",
-      "name": "R5-D4",
-      "posts": [
-        {
-          "sentence": "Hello! My name is R5-D4. I hail from Tatooine."
-        },
-        {
-          "sentence": "I have a mass of  32. My homeworld's climate is arid."
-        },
-        {
-          "sentence": "Please email me at R5-D4@hotmail.com. You'll know me by my white, red skin color."
-        }
-      ],
-      "skin_color": "white, red",
-      "tweets": {
-        "-Jxp00JCF9JlgflNSUWw": {
-          "created": "1970-01-08T09:57:53-07:00",
-          "text": "Hello! My name is R5-D4. I hail from Tatooine."
-        },
-        "-Jxp00JCF9JlgflNSUWx": {
-          "created": "1970-01-05T23:36:20-07:00",
-          "text": "I have a mass of  32. My homeworld's climate is arid."
-        },
-        "-Jxp00JEUOy1dO92p-F8": {
-          "created": "1970-01-10T01:52:52-07:00",
-          "text": "Please email me at R5-D4@hotmail.com. You'll know me by my white, red skin color."
-        }
-      }
-    },
-    "-Jxp00JFHVxT1fplskjt": {
-      "birth_year": "112BBY",
-      "email": "C-3PO@hotmail.com",
-      "eye_color": "yellow",
-      "gender": "n/a",
-      "hair_color": "n/a",
-      "height": "167",
-      "mass": "75",
-      "name": "C-3PO",
-      "posts": [
-        {
-          "sentence": "Hello! My name is C-3PO. I hail from Tatooine."
-        },
-        {
-          "sentence": "I have a mass of  75. My homeworld's climate is arid."
-        },
-        {
-          "sentence": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
-        }
-      ],
-      "skin_color": "gold",
-      "tweets": {
-        "-Jxp00JMtu6Fkf-AmW-5": {
-          "created": "1970-01-05T07:50:33-07:00",
-          "text": "Hello! My name is C-3PO. I hail from Tatooine."
-        },
-        "-Jxp00JOd0I5eD6NuNz4": {
-          "created": "1970-01-06T01:28:23-07:00",
-          "text": "I have a mass of  75. My homeworld's climate is arid."
-        },
-        "-Jxp00JQCuZltWOhnopT": {
-          "created": "1970-01-14T21:40:19-07:00",
-          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
-        }
-      }
-    },
-    "-Jxp00JRl1KaGyNp440P": {
-      "birth_year": "24BBY",
-      "email": "Biggs-Darklighter@hotmail.com",
-      "eye_color": "brown",
-      "gender": "male",
-      "hair_color": "black",
-      "height": "183",
-      "mass": "84",
-      "name": "Biggs Darklighter",
-      "posts": [
-        {
-          "sentence": "Hello! My name is Biggs Darklighter. I hail from Tatooine."
-        },
-        {
-          "sentence": "I have a mass of  84. My homeworld's climate is arid."
-        },
-        {
-          "sentence": "Please email me at Biggs-Darklighter@hotmail.com. You'll know me by my light skin color."
-        }
-      ],
-      "skin_color": "light",
-      "tweets": {
-        "-Jxp00JSn_5MIeyc0qd9": {
-          "created": "1970-01-17T03:32:22-07:00",
-          "text": "Hello! My name is Biggs Darklighter. I hail from Tatooine."
-        },
-        "-Jxp00JTxZo-8bAA8Jaa": {
-          "created": "1970-01-03T01:17:31-07:00",
-          "text": "I have a mass of  84. My homeworld's climate is arid."
-        },
-        "-Jxp00JU3kGojWr3AwMg": {
-          "created": "1970-01-03T08:00:52-07:00",
-          "text": "Please email me at Biggs-Darklighter@hotmail.com. You'll know me by my light skin color."
-        }
-      }
-    },
-    "-Jxp00JU3kGojWr3AwMh": {
+    "-Jxp3HETHzfgUINak7JN": {
       "birth_year": "47BBY",
       "email": "Beru-Whitesun-lars@hotmail.com",
       "eye_color": "blue",
@@ -346,17 +22,341 @@
       ],
       "skin_color": "light",
       "tweets": {
-        "-Jxp00JVP9JIYff1UGFM": {
-          "created": "1970-01-02T21:51:16-07:00",
+        "-Jxp3HEZEv9d2gTUmeQr": {
+          "created": "1970-01-13T11:17:11-07:00",
           "text": "Hello! My name is Beru Whitesun lars. I hail from Tatooine."
         },
-        "-Jxp00JVP9JIYff1UGFN": {
-          "created": "1970-01-08T11:27:30-07:00",
+        "-Jxp3HEaEtYA3_iZr8WC": {
+          "created": "1970-01-05T06:54:15-07:00",
           "text": "I have a mass of  75. My homeworld's climate is arid."
         },
-        "-Jxp00JVP9JIYff1UGFO": {
-          "created": "1970-01-03T05:23:08-07:00",
+        "-Jxp3HEbpNc-iWe_sXnv": {
+          "created": "1970-01-14T02:02:16-07:00",
           "text": "Please email me at Beru-Whitesun-lars@hotmail.com. You'll know me by my light skin color."
+        }
+      }
+    },
+    "-Jxp3HEcibupWK5u-vbJ": {
+      "birth_year": "19BBY",
+      "email": "Luke-Skywalker@hotmail.com",
+      "eye_color": "blue",
+      "gender": "male",
+      "hair_color": "blond",
+      "height": "172",
+      "mass": "77",
+      "name": "Luke Skywalker",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Luke Skywalker. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  77. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
+        }
+      ],
+      "skin_color": "fair",
+      "tweets": {
+        "-Jxp3HEdiQ7ltCKhVb6Z": {
+          "created": "1970-01-07T02:54:11-07:00",
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine."
+        },
+        "-Jxp3HEehUS8FKfCg3O2": {
+          "created": "1970-01-09T01:42:03-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is arid."
+        },
+        "-Jxp3HEfZK2hmuxmRf-z": {
+          "created": "1970-01-14T10:12:00-07:00",
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
+        }
+      }
+    },
+    "-Jxp3HEkLCSdDNWRiGuf": {
+      "birth_year": "19BBY",
+      "email": "Leia-Organa@hotmail.com",
+      "eye_color": "brown",
+      "gender": "female",
+      "hair_color": "brown",
+      "height": "150",
+      "mass": "49",
+      "name": "Leia Organa",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Leia Organa. I hail from Alderaan."
+        },
+        {
+          "sentence": "I have a mass of  49. My homeworld's climate is temperate."
+        },
+        {
+          "sentence": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
+      "tweets": {
+        "-Jxp3HEojo-R_juAofEi": {
+          "created": "1970-01-03T18:19:13-07:00",
+          "text": "Hello! My name is Leia Organa. I hail from Alderaan."
+        },
+        "-Jxp3HEp6olVCLtwqkAS": {
+          "created": "1970-01-13T19:26:58-07:00",
+          "text": "I have a mass of  49. My homeworld's climate is temperate."
+        },
+        "-Jxp3HEr15rEbDH4lsdB": {
+          "created": "1970-01-10T07:45:29-07:00",
+          "text": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
+        }
+      }
+    },
+    "-Jxp3HEspFOarQIZiGpq": {
+      "birth_year": "112BBY",
+      "email": "C-3PO@hotmail.com",
+      "eye_color": "yellow",
+      "gender": "n/a",
+      "hair_color": "n/a",
+      "height": "167",
+      "mass": "75",
+      "name": "C-3PO",
+      "posts": [
+        {
+          "sentence": "Hello! My name is C-3PO. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  75. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
+        }
+      ],
+      "skin_color": "gold",
+      "tweets": {
+        "-Jxp3HEutAnnzoEYybIc": {
+          "created": "1970-01-15T06:37:10-07:00",
+          "text": "Hello! My name is C-3PO. I hail from Tatooine."
+        },
+        "-Jxp3HEvVRoCSxT3t1yA": {
+          "created": "1970-01-15T17:40:19-07:00",
+          "text": "I have a mass of  75. My homeworld's climate is arid."
+        },
+        "-Jxp3HEw8J9o0wB9EmgR": {
+          "created": "1970-01-15T07:30:05-07:00",
+          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
+        }
+      }
+    },
+    "-Jxp3HEx9Y48YRYDRQ1n": {
+      "birth_year": "unknown",
+      "email": "R5-D4@hotmail.com",
+      "eye_color": "red",
+      "gender": "n/a",
+      "hair_color": "n/a",
+      "height": "97",
+      "mass": "32",
+      "name": "R5-D4",
+      "posts": [
+        {
+          "sentence": "Hello! My name is R5-D4. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  32. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at R5-D4@hotmail.com. You'll know me by my white, red skin color."
+        }
+      ],
+      "skin_color": "white, red",
+      "tweets": {
+        "-Jxp3HEzmbxlfN4UQ42g": {
+          "created": "1970-01-16T06:00:22-07:00",
+          "text": "Hello! My name is R5-D4. I hail from Tatooine."
+        },
+        "-Jxp3HEzmbxlfN4UQ42h": {
+          "created": "1970-01-02T22:18:08-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is arid."
+        },
+        "-Jxp3HF0RfnuR7hsxBvl": {
+          "created": "1970-01-13T12:33:29-07:00",
+          "text": "Please email me at R5-D4@hotmail.com. You'll know me by my white, red skin color."
+        }
+      }
+    },
+    "-Jxp3HF1fnY-mH_EV_1c": {
+      "birth_year": "52BBY",
+      "email": "Owen-Lars@hotmail.com",
+      "eye_color": "blue",
+      "gender": "male",
+      "hair_color": "brown, grey",
+      "height": "178",
+      "mass": "120",
+      "name": "Owen Lars",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Owen Lars. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  120. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Owen-Lars@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
+      "tweets": {
+        "-Jxp3HF2DWzpC9exnDHI": {
+          "created": "1970-01-08T06:16:02-07:00",
+          "text": "Hello! My name is Owen Lars. I hail from Tatooine."
+        },
+        "-Jxp3HF3ifi3mL2taoGk": {
+          "created": "1970-01-12T21:24:25-07:00",
+          "text": "I have a mass of  120. My homeworld's climate is arid."
+        },
+        "-Jxp3HF3ifi3mL2taoGl": {
+          "created": "1970-01-02T12:57:23-07:00",
+          "text": "Please email me at Owen-Lars@hotmail.com. You'll know me by my light skin color."
+        }
+      }
+    },
+    "-Jxp3HF4tpurdKcbkPps": {
+      "birth_year": "33BBY",
+      "email": "R2-D2@hotmail.com",
+      "eye_color": "red",
+      "gender": "n/a",
+      "hair_color": "n/a",
+      "height": "96",
+      "mass": "32",
+      "name": "R2-D2",
+      "posts": [
+        {
+          "sentence": "Hello! My name is R2-D2. I hail from Naboo."
+        },
+        {
+          "sentence": "I have a mass of  32. My homeworld's climate is temperate."
+        },
+        {
+          "sentence": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
+        }
+      ],
+      "skin_color": "white, blue",
+      "tweets": {
+        "-Jxp3HF5_W61-Wo9JtPb": {
+          "created": "1970-01-13T00:28:07-07:00",
+          "text": "Hello! My name is R2-D2. I hail from Naboo."
+        },
+        "-Jxp3HF6kbSs-cTcATVk": {
+          "created": "1970-01-11T22:40:26-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is temperate."
+        },
+        "-Jxp3HF6kbSs-cTcATVl": {
+          "created": "1970-01-09T13:42:17-07:00",
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
+        }
+      }
+    },
+    "-Jxp3HF7dcYHjjNXxk9t": {
+      "birth_year": "24BBY",
+      "email": "Biggs-Darklighter@hotmail.com",
+      "eye_color": "brown",
+      "gender": "male",
+      "hair_color": "black",
+      "height": "183",
+      "mass": "84",
+      "name": "Biggs Darklighter",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Biggs Darklighter. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  84. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Biggs-Darklighter@hotmail.com. You'll know me by my light skin color."
+        }
+      ],
+      "skin_color": "light",
+      "tweets": {
+        "-Jxp3HF8RM7OqYkF-FlQ": {
+          "created": "1970-01-10T08:46:21-07:00",
+          "text": "Hello! My name is Biggs Darklighter. I hail from Tatooine."
+        },
+        "-Jxp3HFO00dylzevZ2Ay": {
+          "created": "1970-01-09T10:37:34-07:00",
+          "text": "I have a mass of  84. My homeworld's climate is arid."
+        },
+        "-Jxp3HFP8mRzulOm7wHy": {
+          "created": "1970-01-13T03:55:16-07:00",
+          "text": "Please email me at Biggs-Darklighter@hotmail.com. You'll know me by my light skin color."
+        }
+      }
+    },
+    "-Jxp3HFP8mRzulOm7wHz": {
+      "birth_year": "41.9BBY",
+      "email": "Darth-Vader@hotmail.com",
+      "eye_color": "yellow",
+      "gender": "male",
+      "hair_color": "none",
+      "height": "202",
+      "mass": "136",
+      "name": "Darth Vader",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Darth Vader. I hail from Tatooine."
+        },
+        {
+          "sentence": "I have a mass of  136. My homeworld's climate is arid."
+        },
+        {
+          "sentence": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
+        }
+      ],
+      "skin_color": "white",
+      "tweets": {
+        "-Jxp3HFQQXsON0tkqV7p": {
+          "created": "1970-01-06T07:34:25-07:00",
+          "text": "Hello! My name is Darth Vader. I hail from Tatooine."
+        },
+        "-Jxp3HFQQXsON0tkqV7q": {
+          "created": "1970-01-01T03:08:04-07:00",
+          "text": "I have a mass of  136. My homeworld's climate is arid."
+        },
+        "-Jxp3HFRJ8sXkRiiT_xR": {
+          "created": "1970-01-14T01:18:15-07:00",
+          "text": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
+        }
+      }
+    },
+    "-Jxp3HFRJ8sXkRiiT_xS": {
+      "birth_year": "57BBY",
+      "email": "Obi-Wan-Kenobi@hotmail.com",
+      "eye_color": "blue-gray",
+      "gender": "male",
+      "hair_color": "auburn, white",
+      "height": "182",
+      "mass": "77",
+      "name": "Obi-Wan Kenobi",
+      "posts": [
+        {
+          "sentence": "Hello! My name is Obi-Wan Kenobi. I hail from Stewjon."
+        },
+        {
+          "sentence": "I have a mass of  77. My homeworld's climate is temperate."
+        },
+        {
+          "sentence": "Please email me at Obi-Wan-Kenobi@hotmail.com. You'll know me by my fair skin color."
+        }
+      ],
+      "skin_color": "fair",
+      "tweets": {
+        "-Jxp3HFTBtKLtvCPy6dt": {
+          "created": "1970-01-14T09:59:37-07:00",
+          "text": "Hello! My name is Obi-Wan Kenobi. I hail from Stewjon."
+        },
+        "-Jxp3HFTBtKLtvCPy6du": {
+          "created": "1970-01-04T05:06:05-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is temperate."
+        },
+        "-Jxp3HFUllEnfQMWzh4m": {
+          "created": "1970-01-16T06:53:14-07:00",
+          "text": "Please email me at Obi-Wan-Kenobi@hotmail.com. You'll know me by my fair skin color."
         }
       }
     }

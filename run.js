@@ -38,6 +38,7 @@ var createFakeStarWarsData = function() {
             i += 1;
             return axios.get(swapiRoot + 'people/' + i + '/').then(function(res) {
                 var character = res.data;
+                character.username = slug(character.name).toLowerCase();
                 character.email = slug(character.name) + '@hotmail.com';
                 characters.push(character);
                 return Q();
@@ -370,7 +371,7 @@ var createReadingData = function() {
 
             promises.push(fakeDeferred.promise);
 
-            fakeRef.set(_.pick(fake, 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color'), function(err) {
+            fakeRef.set(_.pick(fake, 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color', 'username'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
 
@@ -397,9 +398,10 @@ var createReadingData = function() {
                         snap.forEach(function(childSnap) {
                             var user = childSnap.val();
 
-                            userObjectsRef.child('follows').child(userKey).push({
+                            userObjectsRef.child('following').child(userKey).push({
                                 key: childSnap.key(),
                                 name: user.name,
+                                username: user.username,
                                 email: user.email
                             }, function (err) {
                                 return err ? followedDeferred.reject(err) : followedDeferred.resolve();
@@ -415,7 +417,7 @@ var createReadingData = function() {
 
                 _.each(followed.posts, function(post) {
                     var postDeferred = Q.defer(),
-                        user = _.pick(followed, 'email', 'name');
+                        user = _.pick(followed, 'email', 'name', 'username');
 
                     user.key = userObjectsRef.push().key();
 
