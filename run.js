@@ -382,6 +382,7 @@ var createReadingData = function() {
 
                 userObjectsRef.child('tweets').child(userKey).push({
                     text: post.sentence,
+                    processed: true,
                     created: moment(_.random(0, maxUnix)).format()
                 }, function(err) {
                     return err ? postDeferred.reject(err) : postDeferred.resolve();
@@ -389,9 +390,11 @@ var createReadingData = function() {
             });
 
             _.each(follows, function(followed) {
-                var followedDeferred = Q.defer();
+                var followingDeferred = Q.defer(),
+                    followersDeferred = Q.defer();
 
-                promises.push(followedDeferred.promise);
+                promises.push(followingDeferred.promise);
+                promises.push(followersDeferred.promise);
 
                 usersRef.orderByChild('name').equalTo(followed.name).once('value', function(snap) {
                     if (snap.numChildren() === 1) {
@@ -403,9 +406,26 @@ var createReadingData = function() {
                                 name: user.name,
                                 username: user.username,
                                 email: user.email
-                            }, function (err) {
-                                return err ? followedDeferred.reject(err) : followedDeferred.resolve();
-                            });        
+                            }, function(err) {
+                                return err ? followingDeferred.reject(err) : followingDeferred.resolve(childSnap.key());
+                            });
+
+                            var followersRef = userObjectsRef.child('followers').child(childSnap.key());
+
+                            followersRef.child('count').transaction(function(val) {
+                                return (val || 0) + 1;
+                            }, function() {
+                                followersRef.child('list').push({
+                                    key: userKey,
+                                    name: fake.name,
+                                    username: fake.username,
+                                    email: fake.email
+                                }, function(err) {
+                                    return err ? followersDeferred.reject(err) : followersDeferred.resolve();
+                                });
+                            });
+
+
                         });
                     } else {
                         console.warn('Number of children is wack:', snap.numChildren());
@@ -413,24 +433,37 @@ var createReadingData = function() {
 
                 });
 
-                
 
-                _.each(followed.posts, function(post) {
-                    var postDeferred = Q.defer(),
-                        user = _.pick(followed, 'email', 'name', 'username');
+                followingDeferred.promise.then(function(followedKey) {
+                    _.each(followed.posts, function(post) {
+                        var postDeferred = Q.defer(),
+                            user = _.pick(followed, 'email', 'name', 'username');
 
-                    user.key = userObjectsRef.push().key();
+                        user.key = followedKey;
 
-                    promises.push(postDeferred.promise);
+                        promises.push(postDeferred.promise);
 
-                    userObjectsRef.child('timeline').child(userKey).push({
-                        text: post.sentence,
-                        created: moment(_.random(0, maxUnix)).format(),
-                        user: user
-                    }, function(err) {
-                        return err ? postDeferred.reject(err) : postDeferred.resolve();
+                        userObjectsRef.child('tweets').child(followedKey).orderByChild('text').equalTo(post.sentence).once('value', function(snap) {
+                            if (snap.numChildren() === 1) {
+                                snap.forEach(function(childSnap) {
+                                    userObjectsRef.child('timeline').child(userKey).push({
+                                        text: post.sentence,
+                                        created: moment(_.random(0, maxUnix)).format(),
+                                        tweetKey: childSnap.key(),
+                                        user: user
+                                    }, function(err) {
+                                        return err ? postDeferred.reject(err) : postDeferred.resolve();
+                                    });
+                                });
+                            } else {
+                                console.log('Too many children!', snap.numChildren());
+                            }
+
+                        });
+
                     });
                 });
+
             });
 
 

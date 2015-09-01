@@ -10,16 +10,21 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="page-header">
-                <h1>Twitter Clone</h1>
+                <h1>
+                    <span>Twitter Clone</span>
+                    <div id="user-select" style="float: right;"></div>
+                </h1>
             </div>
         </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12">
             <div id="user-select"></div>
         </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
-            <div id="user-select"></div>
+            <div id="user-tweet-box" class="jumbotron"></div>
         </div>
     </div>
     <div class="row">
@@ -46,14 +51,20 @@
     <script type="text/template" id="user-timeline-template">
         <h3>Timeline</h3>
         <ul class="list-group">
-            <% _.each(timeline, function(timeline) {%>
+            <% if (timeline) { _.each(Object.keys(timeline).reverse(), function(key) { var item = timeline[key]; %>
                 <li class="list-group-item">
-                    <h4 class="list-group-item-heading"><%= timeline.user.name %> <small>@<%= timeline.user.username %></small></h4>
+                    <h4 class="list-group-item-heading">
+                        <%= item.user.name %> 
+                        <small>@<%= item.user.username %></small>
+                        <% if (item.user.key === userKey) {%>
+                        <button class="btn btn-danger remove-tweet" tweet-key="<%= item.tweetKey %>" user-key="<%= userKey %>" style="float: right;">X</button>
+                    <%}%>
+                    </h4>
                     <p class="list-group-item-text">
-                        <%= timeline.text %>
+                        <%= item.text %>
                     </p>
                 </li>
-                <% }); %>
+                <% }); }%>
         </ul>
     </script>
     <script type="text/template" id="user-following-template">
@@ -66,6 +77,17 @@
                 <% }); %>
         </ul>
     </script>
+    <script type="text/template" id="user-tweet-box-template">
+        <form>
+            <div class="form-group">
+                <textarea id="tweet-box" class="form-control" placeholder="Tweet as <%= user.name %>"></textarea>
+            </div>
+            <div class="form-group">
+                <button id="tweet-button" class="btn btn-primary" disabled="disabled">Tweet</button>
+                <span id="tweet-length" style="margin-left: 1rem; color: gray;">140</span>
+            </div>
+        </form>
+    </script>
     <!-- Dependencies -->
     <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
     <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
@@ -73,7 +95,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <!-- Demo -->
     <script src="script.js"></script>
-    
 </body>
 
 </html>
