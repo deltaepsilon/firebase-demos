@@ -156,9 +156,10 @@
              * - Listen to tweetsRef's "child_added" event using the .on function and save the result to the tweetAddedHandler variable
              * - Save snap.val() and snap.ref() to variables... preferrably "tweet" and "tweetRef"
              * - "child_added" is fired for every tweet in existence, not just new children, so check to see if the tweet's "fannedOut" attribute is true
-             * - If the tweet has not been fanned out, create a reference to /twitterClone/userObjects/followers/###userKey###/list and listen to it's "value" event using .once
+             * - If the tweet has not been fanned out, create a reference to /twitterClone/users/***userKey*** and listen to it's "value" event to capture the current user object
+             * - Once you have the user object, create a reference to /twitterClone/userObjects/followers/###userKey###/list and listen to it's "value" event using .once
              * - The resulting dataSnapshot will contain a list of all users that are following the current user. Save snap.numChildren() a counter variable and use snap.forEach to loop through all followers
-             * - Add a user attribute to the original tweet. The user will need to inherit the follower's email, key, name and username attributes
+             * - Add a user attribute to the original tweet. The user will need to inherit the tweeting user's email, key, name and username attributes
              * - Add a tweetKey attribute to the original tweet. This can be accessed using tweetRef.key()
              * - Create a ref to /twitterClone/userObjects/timeline/***follower.key*** and push the new tweet to it
              * - Create a callback function for the .push function and decrement the numChildren counter variable first thing
@@ -171,7 +172,7 @@
                 var tweet = snap.val(),
                     tweetRef = snap.ref();
 
-                if (!tweet.processed) {
+                if (!tweet.fannedOut) {
                     usersRef.child(userKey).once('value', function(snap) {
                         var user = snap.val(),
                             tweetUser = {
@@ -193,7 +194,7 @@
                                 userObjectsRef.child('timeline').child(follower.key).push(tweet, function(err) {
                                     i -= 1;
                                     if (!i) {
-                                        tweetRef.child('processed').set(true);
+                                        tweetRef.child('fannedOut').set(true);
                                     }
                                 });
                             });
@@ -207,16 +208,23 @@
             /*
              * 9. Fan out tweet deletions
              * - You assigned a ref to the tweetsRef variable in step 8. Now listen to tweetsRef's "child_removed" event using the .on function and save the result to the tweetRemovedHandler variable
+             * - Save the tweet's key for future use
+             * - Create a reference to /twitterClone/userObjects/followers/###userKey###/list and use .once to capture its value
+             * - User snap.forEach() to loop through the user's followers
+             * - Save the follower object using childSnap.val(). You'll need the follower's key for the next step
+             * - For each follower, find the tweet to delete by creating a ref to /twitterClone/timeline/###follower.key###/
+             * - Use the .orderByChild and .equalTo query functions to limit the results to timeline items with a matching tweetKey. Listen to the result's value with .once
+             * - Loop through the resulting snap using .forEach(). There should only be one result... but just to be safe
+             * - Call childSnap.ref().remove() on each childSnap
              */
             tweetRemovedHandler = tweetsRef.on('child_removed', function(snap) {
                 var tweetKey = snap.key();
 
                 userObjectsRef.child('followers').child(userKey).child('list').once('value', function(snap) {
-                    var i = snap.numChildren();
                     snap.forEach(function(childSnap) {
                         var follower = childSnap.val();
                         console.log('remove from follower', follower);
-                        userObjectsRef.child('timeline').child(follower.key).orderByChild('tweetKey').equalTo(tweetKey).on('value', function(snap) {
+                        userObjectsRef.child('timeline').child(follower.key).orderByChild('tweetKey').equalTo(tweetKey).once('value', function(snap) {
                             snap.forEach(function(childSnap) {
                                 childSnap.ref().remove();
                             });
