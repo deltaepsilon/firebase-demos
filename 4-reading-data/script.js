@@ -68,6 +68,7 @@
         tweetsRef,
         tweetAddedHandler,
         tweetRemovedHandler,
+        tweetBoxClickHandler,
         stopListening = function() {
             if (typeof timelineRef === 'object' && typeof timelineHandler) {
                 timelineRef.off("value", timelineHandler);
@@ -120,11 +121,16 @@
                 setTweetBox(snap.val());
             });
 
-            var userTweetBox = $('#user-tweet-box');
-            userTweetBox.on('click', 'button', function(e) {
-                e.preventDefault();
 
-                console.log('clicked on button', userTweetBox.find('textarea').val())
+
+            var userTweetBox = $('#user-tweet-box');
+
+            if (typeof tweetBoxClickHandler === 'function') {
+                userTweetBox.off('click', 'button', tweetBoxClickHandler);
+            }
+
+            tweetBoxClickHandler = function(e) {
+                e.preventDefault();
 
                 var tweet = {
                     text: userTweetBox.find('textarea').val(),
@@ -140,7 +146,9 @@
                  * - Nothing will happen at this point... so go to step 7 to listen for the change.
                  */
                 userObjectsRef.child('tweets').child(userKey).push(tweet);
-            });
+            };
+
+            userTweetBox.on('click', 'button', tweetBoxClickHandler);
 
             /*
              * 7. Fan out new tweets
@@ -164,28 +172,35 @@
                     tweetRef = snap.ref();
 
                 if (!tweet.processed) {
-                    userObjectsRef.child('followers').child(userKey).child('list').once('value', function(snap) {
-                        var i = snap.numChildren();
-                        snap.forEach(function(childSnap) {
-                            var follower = childSnap.val();
-
-                            tweet.tweetKey = tweetRef.key();
-
-                            tweet.user = {
-                                email: follower.email,
-                                key: follower.key,
-                                name: follower.name,
-                                username: follower.username,
+                    usersRef.child(userKey).once('value', function(snap) {
+                        var user = snap.val(),
+                            tweetUser = {
+                                email: user.email,
+                                key: snap.key(),
+                                name: user.name,
+                                username: user.username,
                             };
 
-                            userObjectsRef.child('timeline').child(follower.key).push(tweet, function(err) {
-                                i -= 1;
-                                if (!i) {
-                                    tweetRef.child('processed').set(true);
-                                }
+                        userObjectsRef.child('followers').child(userKey).child('list').once('value', function(snap) {
+                            var i = snap.numChildren();
+                            snap.forEach(function(childSnap) {
+                                var follower = childSnap.val();
+
+                                tweet.tweetKey = tweetRef.key();
+
+                                tweet.user = tweetUser;
+
+                                userObjectsRef.child('timeline').child(follower.key).push(tweet, function(err) {
+                                    i -= 1;
+                                    if (!i) {
+                                        tweetRef.child('processed').set(true);
+                                    }
+                                });
                             });
                         });
+
                     });
+
                 }
             });
 
@@ -195,7 +210,6 @@
              */
             tweetRemovedHandler = tweetsRef.on('child_removed', function(snap) {
                 var tweetKey = snap.key();
-                console.log('tweetKey', tweetKey);
 
                 userObjectsRef.child('followers').child(userKey).child('list').once('value', function(snap) {
                     var i = snap.numChildren();
@@ -203,8 +217,8 @@
                         var follower = childSnap.val();
                         console.log('remove from follower', follower);
                         userObjectsRef.child('timeline').child(follower.key).orderByChild('tweetKey').equalTo(tweetKey).on('value', function(snap) {
-                            snap.forEach(function (childSnap) {
-                               childSnap.ref().remove(); 
+                            snap.forEach(function(childSnap) {
+                                childSnap.ref().remove();
                             });
                         });
                     });
@@ -224,17 +238,14 @@
                 userKey = target.attr('user-key'),
                 tweetKey = target.attr('tweet-key');
 
-            console.log("Deleting...");
-            console.log("userKey", userKey);
-            console.log("tweetKey", tweetKey);
-
+            console.log("Deleting with this userKey and tweetKey", userKey, tweetKey);
+            
             /*
              * 8. Remove tweet
              * - Create a ref to /twitterClone/userObjects/tweets/###userKey###/###tweetKey###
              * - Call .remove() on that ref
              */
             userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove();
-
 
         });
 
