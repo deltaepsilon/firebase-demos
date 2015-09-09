@@ -56,7 +56,7 @@
         };
 
     /*
-     * 1. Configure your firebase
+     * Configure your firebase
      * - Edit the firebaseRoot variable to reference your firebase 
      */
     var firebaseRoot = "https://demos-firebase.firebaseio.com/twitterClone/",
@@ -64,7 +64,7 @@
         userObjectsRef = new Firebase(firebaseRoot + 'userObjects');
 
     /*
-     * 2. Query user data
+     * Query user data
      * - Create a ref to /twitterClone/users and listen to the that ref's "value" event using the .once function
      * - Call the setUsers function with the resulting data
      */
@@ -109,7 +109,7 @@
 
         if (userKey) {
             /*
-             * 3. Query timeline data
+             * Query timeline data
              * - Create a ref to /twitterClone/userObjects/timeline/***userKey*** and set to the timelineRef variable
              * - Listen to timelineRef's "value" event using the .on function to listen to all future events and save the result of the .on function as timelineHandler
              * - Call the setTimeline function with the data resulting from each "value" event and userKey as a second argument
@@ -179,28 +179,6 @@
                             reset = true;
                         }
 
-
-
-                        // console.log(snap.key(), tweet.text)
-
-                        // tweet.key = snap.key();
-
-                        // timeline.splice(counter, 0, tweet); // Firebase returns these tweets from earliest to most recent, so we tack these on to the 
-
-                        // counter += 1;
-
-                        // if (counter > timelinePageCount) {
-                        //     loadMore = true;
-                        //     extraTweet = timeline.shift();
-                        //     lastKey = extraTweet.key;
-                        //     console.log(timeline, lastKey)
-
-                        // }
-
-                        // if (Object.keys(timeline).length > timelinePageCount) {
-                        //     reset = true;
-                        // }
-
                         setTimeline(tweets.reverse(), userKey, {
                             loadMore: loadMore,
                             reset: reset,
@@ -216,7 +194,7 @@
 
 
             /*
-             * 4. Query following data
+             * Query following data
              * - Create a ref to /twitterClone/userObjects/following/***userKey*** and listen to the ref's "value" event using the .once function
              * - Call the setFollows function with the resulting data
              */
@@ -225,7 +203,7 @@
             });
 
             /*
-             * 5. Query user profile
+             * Query user profile
              * - Create a ref to /twitterClone/users/***userKey*** and listen to the ref's "value" event using the .once function
              * - Call the setTweetBox function with the resulting data
              */
@@ -271,7 +249,7 @@
             userTweetBox.on('click', 'button', tweetBoxClickHandler);
 
             /*
-             * 7. Fan out new tweets
+             * Fan out new tweets
              * - Create a ref to /twitterClone/userObjects/tweets/***userKey*** and assign to tweetsRef variable
              * - Listen to tweetsRef's "child_added" event using the .on function and save the result to the tweetAddedHandler variable
              * - Save snap.val() and snap.ref() to variables... preferrably "tweet" and "tweetRef"
@@ -326,7 +304,7 @@
             });
 
             /*
-             * 9. Fan out tweet deletions
+             * Fan out tweet deletions
              * - You assigned a ref to the tweetsRef variable in step 8. Now listen to tweetsRef's "child_removed" event using the .on function and save the result to the tweetRemovedHandler variable
              * - Save the tweet's key for future use
              * - Create a reference to /twitterClone/userObjects/followers/###userKey###/list and use .once to capture its value
@@ -369,7 +347,7 @@
             console.log("Deleting with this userKey and tweetKey", userKey, tweetKey);
 
             /*
-             * 8. Remove tweet
+             * Remove tweet
              * - Create a ref to /twitterClone/userObjects/tweets/###userKey###/###tweetKey###
              * - Call .remove() on that ref
              */
