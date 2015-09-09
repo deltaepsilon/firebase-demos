@@ -51,7 +51,7 @@
     <script type="text/template" id="user-timeline-template">
         <h3>Timeline</h3>
         <ul class="list-group">
-            <% if (timeline) { _.each(Object.keys(timeline).reverse(), function(key) { var item = timeline[key]; %>
+            <% if (timeline) { _.each(timeline, function(item) { %>
                 <li class="list-group-item">
                     <h4 class="list-group-item-heading">
                         <%= item.user.name %> 
@@ -66,6 +66,17 @@
                 </li>
                 <% }); }%>
         </ul>
+        <div style="text-align: center;">
+            <% if (loadMore) {%>
+                <button id="load-more" class="btn btn-primary">Load More</button>
+                <% } %>
+                    <% if (orderByText) {%>
+                        <button id="order-by-text" class="btn btn-primary">Order by Text</button>
+                        <% } %>
+                            <% if (reset) {%>
+                                <button id="reset" class="btn btn-primary">Reset</button>
+                                <% } %>
+        </div>
     </script>
     <script type="text/template" id="user-following-template">
         <h3>Following</h3>
@@ -78,6 +89,7 @@
         </ul>
     </script>
     <script type="text/template" id="user-tweet-box-template">
+        <h3><%= user.name %> <small style="float:right;">Tweet Count: <%= user.tweetCount %></small></h3>
         <form>
             <div class="form-group">
                 <textarea id="tweet-box" class="form-control" placeholder="Tweet as <%= user.name %>"></textarea>

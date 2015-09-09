@@ -1,4 +1,7 @@
 (function() {
+    // Config
+    var timelinePageCount = 3;
+
     // Templating functions
     var setUsers = function(users) {
             console.info('called setUsers with these users:', users);
@@ -7,16 +10,22 @@
             })).find('select').on('change', handleUserChange).val(Object.keys(users)[0]).trigger('change');
 
         },
-        setTimeline = function(timeline, userKey) {
+        setTimeline = function(timeline, userKey, buttons, callback) {
             console.info('called setTimeline with this timeline:', timeline);
             $('#user-timeline').html(_.template($('#user-timeline-template').html())({
                 timeline: timeline,
-                userKey: userKey
+                userKey: userKey,
+                loadMore: buttons.loadMore || false,
+                orderByText: buttons.orderByText || false,
+                reset: buttons.reset || false
             }));
 
+            if (typeof callback === 'function') {
+                callback();
+            }
         },
         setFollowing = function(following) {
-            console.info('called setTimeline with this following:', following);
+            console.info('called setFollowing with this following:', following);
             $('#user-following').html(_.template($('#user-following-template').html())({
                 following: following
             }));
@@ -65,13 +74,22 @@
 
     var timelineRef,
         timelineHandler,
+        userRef,
+        userHandler,
         tweetsRef,
         tweetAddedHandler,
         tweetRemovedHandler,
         tweetBoxClickHandler,
-        stopListening = function() {
+        stopListeningToTimeline = function() {
             if (typeof timelineRef === 'object' && typeof timelineHandler) {
                 timelineRef.off("value", timelineHandler);
+            }
+        },
+        stopListening = function() {
+            stopListeningToTimeline();
+
+            if (typeof userRef === 'object' && typeof userHandler) {
+                userRef.off("value", userHandler);
             }
 
             if (typeof tweetsRef === 'object' && typeof tweetAddedHandler) {
@@ -96,12 +114,73 @@
              * - Listen to timelineRef's "value" event using the .on function to listen to all future events and save the result of the .on function as timelineHandler
              * - Call the setTimeline function with the data resulting from each "value" event and userKey as a second argument
              */
+            var lastKey = false,
+                timeline = [],
+                setQueryHandlers = function() {
+                    $('#load-more').on('click', queryTimeline)
+                    $('#reset').on('click', resetTimeline);
+                    $('#order-by-text').on('click', orderByText);
+                },
+                resetTimeline = function() {
+                    lastKey = false;
+                    timeline = [];
+                    queryTimeline();
+                },
+                orderByText = function(text) {
+                    stopListeningToTimeline();
+                    timelineRef = userObjectsRef.child('timeline').child(userKey).orderByChild('text');
+                    timelineHandler = timelineRef.on('value', function(snap) {
+                        setTimeline(snap.val(), userKey, {reset: true}, setQueryHandlers);
+                    });
+                },
+                queryTimeline = function() {
+                    stopListeningToTimeline();
 
-            timelineRef = userObjectsRef.child('timeline').child(userKey);
+                    var limit = timelinePageCount + 1,
+                        reset = false,
+                        counter = 0,
+                        i = timeline.length;
+ 
+                    if (lastKey) {
+                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().endAt(lastKey).limitToLast(limit);
+                    } else {
+                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(limit);
+                    }
 
-            timelineHandler = timelineRef.on('value', function(snap) {
-                setTimeline(snap.val(), userKey);
-            });
+                    timelineHandler = timelineRef.on('child_added', function(snap) {
+                        var loadMore = false,
+                            tweet = snap.val(),
+                            extraTweet;
+
+                        console.log(snap.key(), tweet.text)
+
+                        tweet.key = snap.key();
+
+                        timeline.splice(counter, 0, tweet); // Firebase returns these tweets from earliest to most recent, so we tack these on to the 
+
+                        counter += 1;
+
+                        if (counter > timelinePageCount) {
+                            loadMore = true;
+                            extraTweet = timeline.shift();
+                            lastKey = extraTweet.key;
+                            console.log(timeline, lastKey)
+
+                        }
+
+                        if (Object.keys(timeline).length > timelinePageCount) {
+                            reset = true;
+                        }
+
+                        setTimeline(Array.prototype.slice.call(timeline).reverse(), userKey, {loadMore: loadMore, reset: reset, orderByText: true}, setQueryHandlers);
+                    });
+                };
+
+
+
+            queryTimeline();
+
+
 
             /*
              * 4. Query following data
@@ -117,11 +196,11 @@
              * - Create a ref to /twitterClone/users/***userKey*** and listen to the ref's "value" event using the .once function
              * - Call the setTweetBox function with the resulting data
              */
-            usersRef.child(userKey).once('value', function(snap) {
+            userRef = usersRef.child(userKey);
+
+            userHandler = userRef.on('value', function(snap) {
                 setTweetBox(snap.val());
             });
-
-
 
             var userTweetBox = $('#user-tweet-box');
 
@@ -145,7 +224,15 @@
                  * - Push the new tweet to this ref.
                  * - Nothing will happen at this point... so go to step 7 to listen for the change.
                  */
-                userObjectsRef.child('tweets').child(userKey).push(tweet);
+                userObjectsRef.child('tweets').child(userKey).push(tweet, function(err) {
+                    if (err) {
+                        console.warn('error!', err);
+                    } else {
+                        usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                            return (i || 0) + 1;
+                        });
+                    }
+                });
             };
 
             userTweetBox.on('click', 'button', tweetBoxClickHandler);
@@ -163,7 +250,7 @@
              * - Add a tweetKey attribute to the original tweet. This can be accessed using tweetRef.key()
              * - Create a ref to /twitterClone/userObjects/timeline/***follower.key*** and push the new tweet to it
              * - Create a callback function for the .push function and decrement the numChildren counter variable first thing
-             * - If the decremented numChildren counter is zero, create a new node under the "tweetRef" and set it to true
+             * - If the decremented numChildren counter is zero, use the .set() function to set the tweetRef's "fannedOut" attribute to true
              */
             tweetsRef = userObjectsRef.child('tweets').child(userKey);
 
@@ -224,7 +311,7 @@
                     snap.forEach(function(childSnap) {
                         var follower = childSnap.val();
                         console.log('remove from follower', follower);
-                        userObjectsRef.child('timeline').child(follower.key).orderByChild('tweetKey').equalTo(tweetKey).once('value', function(snap) {
+                        userObjectsRef.child('timeline').child(follower.key).equalTo(tweetKey).once('value', function(snap) {
                             snap.forEach(function(childSnap) {
                                 childSnap.ref().remove();
                             });
@@ -247,7 +334,7 @@
                 tweetKey = target.attr('tweet-key');
 
             console.log("Deleting with this userKey and tweetKey", userKey, tweetKey);
-            
+
             /*
              * 8. Remove tweet
              * - Create a ref to /twitterClone/userObjects/tweets/###userKey###/###tweetKey###

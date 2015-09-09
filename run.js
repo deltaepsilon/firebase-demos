@@ -376,16 +376,24 @@ var createReadingData = function() {
             });
 
             _.each(fake.posts, function(post) {
-                var postDeferred = Q.defer();
+                var postDeferred = Q.defer(),
+                    tweetCountDeferred = Q.defer();
 
                 promises.push(postDeferred.promise);
+                promises.push(tweetCountDeferred.promise);
 
                 userObjectsRef.child('tweets').child(userKey).push({
                     text: post.sentence,
-                    processed: true,
+                    fannedOut: true,
                     created: moment(_.random(0, maxUnix)).format()
                 }, function(err) {
                     return err ? postDeferred.reject(err) : postDeferred.resolve();
+                });
+
+                usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                    return (i || 0) + 1;
+                }, function(err) {
+                    return err ? tweetCountDeferred.reject(err) : tweetCountDeferred.resolve();
                 });
             });
 
