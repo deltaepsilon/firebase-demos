@@ -480,7 +480,7 @@ var createReadingData = function() {
 
         Q.all(promises).then(function() {
             readingDataRef.on('value', function(snap) {
-                fs.writeJSON('./4-reading-data/data.json', snap.val(), function(err) {
+                fs.writeJSON('./3-reading-data/data.json', snap.val(), function(err) {
                     return err ? deferred.reject(err) : deferred.resolve();
                 });
 

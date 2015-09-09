@@ -15,9 +15,9 @@
             $('#user-timeline').html(_.template($('#user-timeline-template').html())({
                 timeline: timeline,
                 userKey: userKey,
-                loadMore: buttons.loadMore || false,
-                orderByText: buttons.orderByText || false,
-                reset: buttons.reset || false
+                loadMore: buttons ? buttons.loadMore || false : false,
+                orderByText: buttons ? buttons.orderByText || false : false,
+                reset: buttons ? buttons.reset || false : false
             }));
 
             if (typeof callback === 'function') {
@@ -55,19 +55,10 @@
             });
         };
 
-    /*
-     * Configure your firebase
-     * - Edit the firebaseRoot variable to reference your firebase 
-     */
     var firebaseRoot = "https://demos-firebase.firebaseio.com/twitterClone/",
         usersRef = new Firebase(firebaseRoot + 'users'),
         userObjectsRef = new Firebase(firebaseRoot + 'userObjects');
 
-    /*
-     * Query user data
-     * - Create a ref to /twitterClone/users and listen to the that ref's "value" event using the .once function
-     * - Call the setUsers function with the resulting data
-     */
     usersRef.once('value', function(snap) {
         setUsers(snap.val());
     });
@@ -100,6 +91,18 @@
                 tweetsRef.off("child_removed", tweetRemovedHandler);
             }
 
+        },
+        flatten = function(tweets) {
+            var keys = Object.keys(tweets),
+                i = keys.length,
+                result = [],
+                tweet;
+            while (i--) {
+                tweet = tweets[keys[i]];
+                tweet.key = keys[i];
+                result.unshift(tweet);
+            }
+            return result;
         };
 
     var handleUserChange = function(e) {
@@ -108,105 +111,16 @@
         stopListening();
 
         if (userKey) {
-            /*
-             * Query timeline data
-             * - Create a ref to /twitterClone/userObjects/timeline/***userKey*** and set to the timelineRef variable
-             * - Listen to timelineRef's "value" event using the .on function to listen to all future events and save the result of the .on function as timelineHandler
-             * - Call the setTimeline function with the data resulting from each "value" event and userKey as a second argument
-             */
-            var lastKey = false,
-                page = 0,
-                flatten = function(tweets) {
-                    var keys = Object.keys(tweets),
-                        i = keys.length,
-                        result = [],
-                        tweet;
-                    while (i--) {
-                        tweet = tweets[keys[i]];
-                        tweet.key = keys[i];
-                        result.unshift(tweet);
-                    }
-                    return result;
-                },
-                setQueryHandlers = function() {
-                    $('#load-more').on('click', queryTimeline)
-                    $('#reset').on('click', resetTimeline);
-                    $('#order-by-text').on('click', orderByText);
-                },
-                resetTimeline = function() {
-                    lastKey = false;
-                    page = 0;
-                    queryTimeline();
-                },
-                orderByText = function(text) {
-                    var timeline = [];
-                    stopListeningToTimeline();
-                    timelineRef = userObjectsRef.child('timeline').child(userKey).orderByChild('text');
-                    timelineHandler = timelineRef.on('child_added', function(snap) {
-                        timeline.push(snap.val());
-                        setTimeline(timeline, userKey, {
-                            reset: true
-                        }, setQueryHandlers);
-                    });
-                },
-                queryTimeline = function() {
-                    stopListeningToTimeline();
-                    page += 1;
+            
+            timelineRef = userObjectsRef.child('timeline').child(userKey);
+            timelineHandler = timelineRef.on('value', function(snap) {
+                setTimeline(flatten(snap.val()).reverse(), userKey);
+            });
 
-                    var showLimit = timelinePageCount * page,
-                        queryLimit = showLimit + 1,
-                        extraTweet,
-                        reset = false;
-
-                    if (lastKey) {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    } else {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    }
-
-                    timelineHandler = timelineRef.on('value', function(snap) {
-                        var loadMore = false,
-                            tweets = flatten(snap.val());
-
-                        if (tweets.length >= queryLimit) {
-                            loadMore = true;
-                            extraTweet = tweets.shift();
-                            lastKey = extraTweet.key;
-                            console.log(tweets, lastKey)
-                        }
-
-                        if (tweets.length > timelinePageCount) {
-                            reset = true;
-                        }
-
-                        setTimeline(tweets.reverse(), userKey, {
-                            loadMore: loadMore,
-                            reset: reset,
-                            orderByText: true
-                        }, setQueryHandlers);
-                    });
-                };
-
-
-
-            queryTimeline();
-
-
-
-            /*
-             * Query following data
-             * - Create a ref to /twitterClone/userObjects/following/***userKey*** and listen to the ref's "value" event using the .once function
-             * - Call the setFollows function with the resulting data
-             */
             userObjectsRef.child('following').child(userKey).once('value', function(snap) {
                 setFollowing(snap.val());
             });
 
-            /*
-             * Query user profile
-             * - Create a ref to /twitterClone/users/***userKey*** and listen to the ref's "value" event using the .once function
-             * - Call the setTweetBox function with the resulting data
-             */
             userRef = usersRef.child(userKey);
 
             userHandler = userRef.on('value', function(snap) {
@@ -215,7 +129,7 @@
 
             var userTweetBox = $('#user-tweet-box');
 
-            if (typeof tweetBoxClickHandler === 'function') {
+            if (typeof tweetBoxClickHandler === 'function') { // Prevent duplicate registration of the tweetBoxClickHandler listener
                 userTweetBox.off('click', 'button', tweetBoxClickHandler);
             }
 
@@ -230,10 +144,11 @@
                 userTweetBox.find('textarea').val('').focus();
 
                 /*
-                 * 6. Create new tweet
+                 * Create new tweet
                  * - Create a ref to /twitterClone/userObjects/tweets/***userKey***
-                 * - Push the new tweet to this ref.
-                 * - Nothing will happen at this point... so go to step 7 to listen for the change.
+                 * - Push the new tweet to this ref
+                 * - Nothing visual will change at this point, because you haven't fanned the tweet out to users' timeline
+                 * - If the tweet is successfully pushed, create a ref to /twitterClone/users/###userKey###/tweetCount and use .transaction() to increment the tweetCount value
                  */
                 userObjectsRef.child('tweets').child(userKey).push(tweet, function(err) {
                     if (err) {
@@ -303,36 +218,6 @@
                 }
             });
 
-            /*
-             * Fan out tweet deletions
-             * - You assigned a ref to the tweetsRef variable in step 8. Now listen to tweetsRef's "child_removed" event using the .on function and save the result to the tweetRemovedHandler variable
-             * - Save the tweet's key for future use
-             * - Create a reference to /twitterClone/userObjects/followers/###userKey###/list and use .once to capture its value
-             * - User snap.forEach() to loop through the user's followers
-             * - Save the follower object using childSnap.val(). You'll need the follower's key for the next step
-             * - For each follower, find the tweet to delete by creating a ref to /twitterClone/timeline/###follower.key###/
-             * - Use the .orderByChild and .equalTo query functions to limit the results to timeline items with a matching tweetKey. Listen to the result's value with .once
-             * - Loop through the resulting snap using .forEach(). There should only be one result... but just to be safe
-             * - Call childSnap.ref().remove() on each childSnap
-             */
-            tweetRemovedHandler = tweetsRef.on('child_removed', function(snap) {
-                var tweetKey = snap.key();
-
-                userObjectsRef.child('followers').child(userKey).child('list').once('value', function(snap) {
-                    snap.forEach(function(childSnap) {
-                        var follower = childSnap.val();
-                        console.log('remove from follower', follower);
-                        userObjectsRef.child('timeline').child(follower.key).orderByChild('tweetKey').equalTo(tweetKey).once('value', function(snap) {
-                            snap.forEach(function(childSnap) {
-                                childSnap.ref().remove();
-                            });
-                        });
-                    });
-                });
-            });
-
-
-
         } else {
             setTweetBox({});
             setTimeline({});
@@ -350,6 +235,7 @@
              * Remove tweet
              * - Create a ref to /twitterClone/userObjects/tweets/###userKey###/###tweetKey###
              * - Call .remove() on that ref
+             * - Nothing will happen visually, because we haven't removed the tweet from followers' timelines
              */
             userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove();
 

@@ -1,0 +1,112 @@
+<html>
+
+<head>
+    <title>Firebase Endpoints Demo</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+
+<body class="container">
+    <!-- Markup -->
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="page-header">
+                <h1>
+                    <span>Twitter Clone</span>
+                    <div id="user-select" style="float: right;"></div>
+                </h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="user-select"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div id="user-tweet-box" class="jumbotron"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div id="user-following" style="padding: 2rem 0;"></div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div id="user-timeline" style="padding: 2rem 0;"></div>
+        </div>
+    </div>
+    <!-- Templates -->
+    <script type="text/template" id="user-select-template">
+        <div class="input-group">
+            <select class="form-control" class="users">
+                <option value="">Pick a user to impersonate</option>
+                <% _.each(users, function(user, key) {%>
+                    <option value="<%= key %>">
+                        <%= user.name %>
+                    </option>
+                    <% }); %>
+            </select>
+        </div>
+    </script>
+    <script type="text/template" id="user-timeline-template">
+        <h3>Timeline</h3>
+        <ul class="list-group">
+            <% if (timeline) { _.each(timeline, function(item) { %>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading">
+                        <%= item.user.name %> 
+                        <small>@<%= item.user.username %></small>
+                        <% if (item.user.key === userKey) {%>
+                        <button class="btn btn-danger remove-tweet" tweet-key="<%= item.tweetKey %>" user-key="<%= userKey %>" style="float: right;">X</button>
+                    <%}%>
+                    </h4>
+                    <p class="list-group-item-text">
+                        <%= item.text %>
+                    </p>
+                </li>
+                <% }); }%>
+        </ul>
+        <div style="text-align: center;">
+            <% if (loadMore) {%>
+                <button id="load-more" class="btn btn-primary">Load More</button>
+                <% } %>
+                    <% if (orderByText) {%>
+                        <button id="order-by-text" class="btn btn-primary">Order by Text</button>
+                        <% } %>
+                            <% if (reset) {%>
+                                <button id="reset" class="btn btn-primary">Reset</button>
+                                <% } %>
+        </div>
+    </script>
+    <script type="text/template" id="user-following-template">
+        <h3>Following</h3>
+        <ul class="list-group">
+            <% _.each(following, function(following) {%>
+                <li class="list-group-item">
+                    <h4 class="list-group-item-heading"><%= following.name %> <small>@<%= following.username %></small></h4>
+                </li>
+                <% }); %>
+        </ul>
+    </script>
+    <script type="text/template" id="user-tweet-box-template">
+        <h3><%= user.name %> <small style="float:right;">Tweet Count: <%= user.tweetCount %></small></h3>
+        <form>
+            <div class="form-group">
+                <textarea id="tweet-box" class="form-control" placeholder="Tweet as <%= user.name %>"></textarea>
+            </div>
+            <div class="form-group">
+                <button id="tweet-button" class="btn btn-primary" disabled="disabled">Tweet</button>
+                <span id="tweet-length" style="margin-left: 1rem; color: gray;">140</span>
+            </div>
+        </form>
+    </script>
+    <!-- Dependencies -->
+    <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- Demo -->
+    <script src="script.js"></script>
+</body>
+
+</html>
