@@ -115,7 +115,19 @@
              * - Call the setTimeline function with the data resulting from each "value" event and userKey as a second argument
              */
             var lastKey = false,
-                timeline = [],
+                page = 0,
+                flatten = function(tweets) {
+                    var keys = Object.keys(tweets),
+                        i = keys.length,
+                        result = [],
+                        tweet;
+                    while (i--) {
+                        tweet = tweets[keys[i]];
+                        tweet.key = keys[i];
+                        result.unshift(tweet);
+                    }
+                    return result;
+                },
                 setQueryHandlers = function() {
                     $('#load-more').on('click', queryTimeline)
                     $('#reset').on('click', resetTimeline);
@@ -123,56 +135,77 @@
                 },
                 resetTimeline = function() {
                     lastKey = false;
-                    timeline = [];
+                    page = 0;
                     queryTimeline();
                 },
                 orderByText = function(text) {
+                    var timeline = [];
                     stopListeningToTimeline();
                     timelineRef = userObjectsRef.child('timeline').child(userKey).orderByChild('text');
-                    timelineHandler = timelineRef.on('value', function(snap) {
-                        setTimeline(snap.val(), userKey, {reset: true}, setQueryHandlers);
+                    timelineHandler = timelineRef.on('child_added', function(snap) {
+                        timeline.push(snap.val());
+                        setTimeline(timeline, userKey, {
+                            reset: true
+                        }, setQueryHandlers);
                     });
                 },
                 queryTimeline = function() {
                     stopListeningToTimeline();
+                    page += 1;
 
-                    var limit = timelinePageCount + 1,
-                        reset = false,
-                        counter = 0,
-                        i = timeline.length;
- 
+                    var showLimit = timelinePageCount * page,
+                        queryLimit = showLimit + 1,
+                        extraTweet,
+                        reset = false;
+
                     if (lastKey) {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().endAt(lastKey).limitToLast(limit);
+                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
                     } else {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(limit);
+                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
                     }
 
-                    timelineHandler = timelineRef.on('child_added', function(snap) {
+                    timelineHandler = timelineRef.on('value', function(snap) {
                         var loadMore = false,
-                            tweet = snap.val(),
-                            extraTweet;
+                            tweets = flatten(snap.val());
 
-                        console.log(snap.key(), tweet.text)
-
-                        tweet.key = snap.key();
-
-                        timeline.splice(counter, 0, tweet); // Firebase returns these tweets from earliest to most recent, so we tack these on to the 
-
-                        counter += 1;
-
-                        if (counter > timelinePageCount) {
+                        if (tweets.length >= queryLimit) {
                             loadMore = true;
-                            extraTweet = timeline.shift();
+                            extraTweet = tweets.shift();
                             lastKey = extraTweet.key;
-                            console.log(timeline, lastKey)
-
+                            console.log(tweets, lastKey)
                         }
 
-                        if (Object.keys(timeline).length > timelinePageCount) {
+                        if (tweets.length > timelinePageCount) {
                             reset = true;
                         }
 
-                        setTimeline(Array.prototype.slice.call(timeline).reverse(), userKey, {loadMore: loadMore, reset: reset, orderByText: true}, setQueryHandlers);
+
+
+                        // console.log(snap.key(), tweet.text)
+
+                        // tweet.key = snap.key();
+
+                        // timeline.splice(counter, 0, tweet); // Firebase returns these tweets from earliest to most recent, so we tack these on to the 
+
+                        // counter += 1;
+
+                        // if (counter > timelinePageCount) {
+                        //     loadMore = true;
+                        //     extraTweet = timeline.shift();
+                        //     lastKey = extraTweet.key;
+                        //     console.log(timeline, lastKey)
+
+                        // }
+
+                        // if (Object.keys(timeline).length > timelinePageCount) {
+                        //     reset = true;
+                        // }
+
+                        setTimeline(tweets.reverse(), userKey, {
+                            loadMore: loadMore,
+                            reset: reset,
+                            orderByText: true
+                        }, setQueryHandlers);
                     });
                 };
 
@@ -311,7 +344,7 @@
                     snap.forEach(function(childSnap) {
                         var follower = childSnap.val();
                         console.log('remove from follower', follower);
-                        userObjectsRef.child('timeline').child(follower.key).equalTo(tweetKey).once('value', function(snap) {
+                        userObjectsRef.child('timeline').child(follower.key).orderByChild('tweetKey').equalTo(tweetKey).once('value', function(snap) {
                             snap.forEach(function(childSnap) {
                                 childSnap.ref().remove();
                             });
