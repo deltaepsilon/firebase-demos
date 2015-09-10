@@ -14,4 +14,7 @@ Build the demo
 
 Takeaways
 
-- 
+- Use .orderByChild() to order by a child node.
+- Listen to "child_added" events to receive tweets as ordered by child. Simply listening to "value" does not result in an ordered list. You've got to use "child_added".
+- Use .orderByKey() and .limitToLast() to query the end of a Firebase "array".
+- Listen to the "child_removed" events and fan out deletions.

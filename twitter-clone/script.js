@@ -155,24 +155,17 @@
 
                     var showLimit = timelinePageCount * page,
                         queryLimit = showLimit + 1,
-                        extraTweet,
                         reset = false;
 
-                    if (lastKey) {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    } else {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    }
-
+                    timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
+                    
                     timelineHandler = timelineRef.on('value', function(snap) {
                         var loadMore = false,
                             tweets = flatten(snap.val());
 
                         if (tweets.length >= queryLimit) {
                             loadMore = true;
-                            extraTweet = tweets.shift();
-                            lastKey = extraTweet.key;
-                            console.log(tweets, lastKey)
+                            tweets.shift();
                         }
 
                         if (tweets.length > timelinePageCount) {

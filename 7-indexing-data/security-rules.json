@@ -1,0 +1,27 @@
+{
+    "rules": {
+        ".read": true,
+        ".write": true,
+        
+        "twitterClone": {
+          "users": {
+            "$userKey": {
+              ".indexOn": ["name"] // Optionally index on /twitterClone/users/***userKey***/name
+            }
+          },
+          "userObjects": {
+            "tweets": {
+              "$userKey": {
+                ".indexOn": ["text"] // Index on /twitterClone/userObjects/tweets/***userKey***/text
+              }
+            },
+            "timeline": {
+              "$userKey": {
+                ".indexOn": ["tweetKey"] // Index on /twitterClone/userObjects/timeline/***userKey***/tweetKey
+              }
+            }
+          }
+        }
+        
+    }
+}

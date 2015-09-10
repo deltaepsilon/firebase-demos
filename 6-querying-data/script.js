@@ -147,17 +147,13 @@
 
                     var showLimit = timelinePageCount * page,
                         queryLimit = showLimit + 1,
-                        extraTweet,
                         reset = false;
 
-                    if (lastKey) {
-                        /*
-                         * 
-                         */
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    } else {
-                        timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    }
+                    /*
+                     * Query timeline
+                     * - Create a ref to /twitterClone/userObjects/timeline/***userKey***, then call orderByKey() and limitToLast(queryLimit). Save the resulting ref to the timelineRef variable
+                     */
+                    timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
 
                     timelineHandler = timelineRef.on('value', function(snap) {
                         var loadMore = false,
@@ -165,9 +161,7 @@
 
                         if (tweets.length >= queryLimit) {
                             loadMore = true;
-                            extraTweet = tweets.shift();
-                            lastKey = extraTweet.key;
-                            console.log(tweets, lastKey)
+                            tweets.shift();
                         }
 
                         if (tweets.length > timelinePageCount) {
@@ -267,7 +261,7 @@
 
             /*
              * Fan out tweet deletions
-             * - You assigned a ref to the tweetsRef variable in step 8. Now listen to tweetsRef's "child_removed" event using the .on function and save the result to the tweetRemovedHandler variable
+             * - You assigned a ref to the tweetsRef variable on line 223. Now listen to tweetsRef's "child_removed" event using the .on function and save the result to the tweetRemovedHandler variable
              * - Save the tweet's key for future use
              * - Create a reference to /twitterClone/userObjects/followers/###userKey###/list and use .once to capture its value
              * - User snap.forEach() to loop through the user's followers
