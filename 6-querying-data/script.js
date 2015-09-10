@@ -302,7 +302,15 @@
 
             console.log("Deleting with this userKey and tweetKey", userKey, tweetKey);
 
-            userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove();
+            userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove(function(err) {
+                if (err) {
+                    console.warn('Tweet deletion error', err);
+                } else {
+                    usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                        return Math.max(0, (i || 0) - 1);
+                    });
+                }
+            });
 
         });
 

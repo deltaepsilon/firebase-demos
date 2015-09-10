@@ -158,7 +158,7 @@
                         reset = false;
 
                     timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
-                    
+
                     timelineHandler = timelineRef.on('value', function(snap) {
                         var loadMore = false,
                             tweets = flatten(snap.val());
@@ -343,8 +343,17 @@
              * Remove tweet
              * - Create a ref to /twitterClone/userObjects/tweets/###userKey###/###tweetKey###
              * - Call .remove() on that ref
+             * - If the remove is successful, use .transaction() to decrement /twitterClone/users/###userKey###/tweetCount
              */
-            userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove();
+            userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove(function(err) {
+                if (err) {
+                    console.warn('Tweet deletion error', err);
+                } else {
+                    usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                        return Math.max(0, (i || 0) - 1);
+                    });
+                }
+            });
 
         });
 

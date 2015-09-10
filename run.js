@@ -156,7 +156,7 @@ var createEndpointData = function() {
 
         Q.all(promises).then(function() {
             endpointsRef.on('value', function(snap) {
-                fs.writeJSON('./1-endpoints/data.json', snap.val(), function(err) {
+                fs.writeJSON('./2.1-endpoints/data.json', snap.val(), function(err) {
                     return err ? deferred.reject(err) : deferred.resolve();
                 });
 
@@ -331,7 +331,7 @@ var createDataDesignData = function() {
 
         Q.all(promises).then(function() {
             dataDesignRef.on('value', function(snap) {
-                fs.writeJSON('./3-data-design/data.json', snap.val(), function(err) {
+                fs.writeJSON('./2.3-data-design/data.json', snap.val(), function(err) {
                     return err ? deferred.reject(err) : deferred.resolve();
                 });
 
