@@ -243,17 +243,21 @@
                     created: (new Date()).toString()
                 };
 
-                userTweetBox.find('textarea').val('').focus();
+                if (tweet.text) {
+                    userTweetBox.find('textarea').val('').focus();
 
-                userObjectsRef.child('tweets').child(userKey).push(tweet, function(err) {
-                    if (err) {
-                        console.warn('error!', err);
-                    } else {
-                        usersRef.child(userKey).child('tweetCount').transaction(function(i) {
-                            return (i || 0) + 1;
-                        });
-                    }
-                });
+                    userObjectsRef.child('tweets').child(userKey).push(tweet, function(err) {
+                        if (err) {
+                            console.warn('error!', err);
+                        } else {
+                            usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                                return (i || 0) + 1;
+                            });
+                        }
+                    });
+                }
+
+
             };
 
             userTweetBox.on('click', 'button', tweetBoxClickHandler);
@@ -383,10 +387,14 @@
             refreshFollower(userKey, userKey);
             handleUserChange(userKey);
         };
+
     ref.onAuth(function(authData) {
         if (!authData) {
             setTweetBox();
             setUserDetails();
+            setTimeline();
+            setFollowing();
+            stopListening();
         } else {
             var uid = authData.uid,
                 aclRef = new Firebase(firebaseRoot + 'accessControlList'),
@@ -443,10 +451,11 @@
 
     });
 
-    $(document.body).on('submit', '#login-form', function(e) {
-        e.preventDefault();
-
-        var loginForm = $(e.target),
+    $(document.body).on('submit', function (e) {
+       e.preventDefault(); 
+    });
+    $(document.body).on('click', '#login-form', function(e) {
+        var loginForm = $('#login-form'),
             email = loginForm.find('#login-email').val(),
             password = loginForm.find('#login-password').val(),
             clickedButton = loginForm.find('button:focus'),
