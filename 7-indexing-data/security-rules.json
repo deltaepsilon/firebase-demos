@@ -35,31 +35,3 @@
         
     }
 }
-
-{
-    "rules": {
-        ".read": true,
-        ".write": true,
-        
-        "twitterClone": {
-          "users": {
-            "$userKey": {
-              ".indexOn": ["name"] 
-            }
-          },
-          "userObjects": {
-            "tweets": {
-              "$userKey": {
-                ".indexOn": ["text"] 
-              }
-            },
-            "timeline": {
-              "$userKey": {
-                ".indexOn": ["tweetKey"] 
-              }
-            }
-          }
-        }
-        
-    }
-}

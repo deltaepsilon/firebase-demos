@@ -87,9 +87,9 @@
                 delete users[userKey];
 
                 userObjectsRef.child('following').child(userKey).once('value', function(snap) {
-                    _.each(snap.val(), function (following) {
+                    _.each(snap.val(), function(following) {
                         if (users[following.key]) {
-                            users[following.key].initiallyFollowed = true;      
+                            users[following.key].initiallyFollowed = true;
                         }
                     });
 
@@ -114,7 +114,7 @@
                             }
                             handleUserChange(userKey);
                         } else if (target === 'logout') {
-                            ref.unauth();
+                            logOut();
                         }
                     }).parent().find('.follow-checkbox').on('change', function(e) {
                         var target = $(e.target);
@@ -372,10 +372,80 @@
 
     };
 
+    /*
+     * Set up ref to firebaseRoot
+     * - Save a new ref named "ref" that references firebaseRoot
+     */
     var ref = new Firebase(firebaseRoot);
 
+    $(document.body).on('submit', function(e) {
+        e.preventDefault();
+    });
+    $(document.body).on('click', '#login-form', function(e) {
+        var loginForm = $('#login-form'),
+            email = loginForm.find('#login-email').val(),
+            password = loginForm.find('#login-password').val(),
+            clickedButton = loginForm.find('button:focus'),
+            target = clickedButton.attr('target'),
+            login = function() {
+                /*
+                 * Auth with password
+                 * - Use ref.authWithPassword() to log in the user
+                 */
+                ref.authWithPassword({
+                    email: email,
+                    password: password
+                }, function(err, authData) {
+                    if (err) {
+                        console.warn(err);
+                    }
+                });
+            },
+            register = function() {
+                /*
+                 * Create user
+                 * - Use ref.createUser() to create a user. If user creation succeeds, call login() to manually log the user in. Login is not automatic
+                 */
+                ref.createUser({
+                    email: email,
+                    password: password
+                }, function(err, userData) {
+                    if (err) {
+                        console.warn(err);
+                    } else {
+                        login();
+                    }
+                });
+            };
+
+        return target === 'login' ? login() : register();
+    });
+
+    var logOut = function() {
+        /*
+         * Log out
+         * - Use ref.unauth() to log the user out.
+         */
+        ref.unauth();
+    };
+
     /*
-     * 
+     * Listen to auth changes
+     * - Use ref.onAuth() to listen to auth changes.
+     * - The ref.onAuth() callback receives an object that we'll call authData. If authData is missing, call setTweetBox(), setUserDetails(), setTimeline(), setFollowing() and stopListening(), all with no arguments
+     * - If authData exists, save authData.uid as a variable named "uid" and continue with the following steps
+     * - Save (new Date()).toString() as "dateString" for use in timestamps
+     * - Save authData.password.email as "email"
+     * - Use .once() and the "value" event to listen to /twitterClone/accessControlList/***uid***
+     * - If a matching entry in the ACL exists, set /twitterClone/accessControlList/###uid###/lastLogin to "dateString"
+     * - If no matching ACL entry exists, create one with these keys: { email: email || false, lastLogin: dateString, admin: false }
+     * - Create a callback handler that we'll use for both of the last two cases. This callback handler takes and error argument. If an error is returned, log it out, otherwise, continue
+     * - Handle a successful callback by first checking if an ACL entry exists from the earlier step. If it does, call handleUserChange(entry.userKey)
+     * - If the ACL entry does not exist, create a new user ref using usersRef.push() and saving it as "userRef"
+     * - By creating and saving the new ref, we can save it's key before we set the ref, so save the new ref's key as "userKey"
+     * - Set the new userRef with the keys {email: email, username: email, name: 'Anonymous'}
+     * - Now set the ACL entry's userKey attribute to "userKey". Hint, the userKey attribute can be found at /twitterClone/accessControlList/###uid###/userKey
+     * - Once the ACL entry's userKey attribute is set, call handleUserChange(userKey)
      */
     ref.onAuth(function(authData) {
         if (!authData) {
@@ -396,83 +466,49 @@
 
             aclRef.child(uid).once('value', function(snap) {
                 var entry = snap.val(),
-                    getUser = function() {
-                        var userKey = entry ? entry.userKey : false;
-
-                        if (userKey) {
-                            handleUserChange(userKey);
+                    callback = function(err) {
+                        if (err) {
+                            console.warn(err);
                         } else {
-                            var userRef = usersRef.push();
+                            var userKey = entry ? entry.userKey : false;
 
-                            userRef.set({
-                                email: email,
-                                username: email,
-                                name: 'Anonymous'
-                            }, function(err) {
-                                if (err) {
-                                    console.warn(err);
-                                } else {
-                                    snap.ref().child('userKey').set(userRef.key(), function(err) {
-                                        return err ? console.warn(err) : handleUserChange(userRef.key());
-                                    });
-                                }
+                            if (userKey) {
+                                handleUserChange(userKey);
+                            } else {
+                                var userRef = usersRef.push();
 
-                            });
+                                userRef.set({
+                                    email: email,
+                                    username: email,
+                                    name: 'Anonymous'
+                                }, function(err) {
+                                    if (err) {
+                                        console.warn(err);
+                                    } else {
+                                        snap.ref().child('userKey').set(userRef.key(), function(err) {
+                                            return err ? console.warn(err) : handleUserChange(userRef.key());
+                                        });
+                                    }
+
+                                });
+                            }
                         }
+
                     };
 
                 if (entry && entry.lastLogin) {
-                    snap.ref().child('lastLogin').set(dateString, function(err) {
-                        return err ? console.warn(err) : getUser();
-                    });
+                    snap.ref().child('lastLogin').set(dateString, callback);
                 } else {
                     snap.ref().set({
                         email: email || false,
                         lastLogin: dateString,
                         admin: false
-                    }, function(err) {
-                        return err ? console.warn(err) : getUser();
-                    });
+                    }, callback);
                 }
             });
 
         }
 
-    });
-
-    $(document.body).on('submit', function(e) {
-        e.preventDefault();
-    });
-    $(document.body).on('click', '#login-form', function(e) {
-        var loginForm = $('#login-form'),
-            email = loginForm.find('#login-email').val(),
-            password = loginForm.find('#login-password').val(),
-            clickedButton = loginForm.find('button:focus'),
-            target = clickedButton.attr('target'),
-            login = function() {
-                ref.authWithPassword({
-                    email: email,
-                    password: password
-                }, function(err, authData) {
-                    if (err) {
-                        console.warn(err);
-                    }
-                });
-            },
-            register = function() {
-                ref.createUser({
-                    email: email,
-                    password: password
-                }, function(err, userData) {
-                    if (err) {
-                        console.warn(err);
-                    } else {
-                        login();
-                    }
-                });
-            };
-
-        return target === 'login' ? login() : register();
     });
 
     var handleFollowChange = function(userKey, targetKey, isFollowed) {
