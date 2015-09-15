@@ -84,6 +84,7 @@
             console.info('called setUserDetails with this user:', user);
             usersRef.once('value', function(snap) {
                 var users = snap.val();
+                delete users[userKey];
                 $('#user-details').html(_.template($('#user-details-template').html())({
                     user: user,
                     users: users
