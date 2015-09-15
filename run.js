@@ -458,6 +458,7 @@ var createReadingData = function() {
                                         text: post.sentence,
                                         created: moment(_.random(0, maxUnix)).format(),
                                         tweetKey: childSnap.key(),
+                                        userKey: user.key,
                                         user: user
                                     }, function(err) {
                                         return err ? postDeferred.reject(err) : postDeferred.resolve();

@@ -55,94 +55,117 @@
     </script>
     <script type="text/template" id="user-timeline-template">
         <% if (timeline && timeline.length) { %>
-        <h3>Timeline</h3>
-        <ul class="list-group">
-            <% if (timeline) { _.each(timeline, function(item) { %>
-                <li class="list-group-item">
-                    <h4 class="list-group-item-heading">
+            <h3>Timeline</h3>
+            <ul class="list-group">
+                <% if (timeline) { _.each(timeline, function(item) { %>
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading">
                         <%= item.user.name %> 
                         <small>@<%= item.user.username %></small>
                         <% if (item.user.key === userKey) {%>
                         <button class="btn btn-danger remove-tweet" tweet-key="<%= item.tweetKey %>" user-key="<%= userKey %>" style="float: right;">X</button>
                     <%}%>
                     </h4>
-                    <p class="list-group-item-text">
-                        <%= item.text %>
-                    </p>
-                </li>
-                <% }); }%>
-        </ul>
-        <div style="text-align: center;">
-            <% if (loadMore) {%>
-                <button id="load-more" class="btn btn-primary">Load More</button>
-                <% } %>
-                    <% if (orderByText) {%>
-                        <button id="order-by-text" class="btn btn-primary">Order by Text</button>
-                        <% } %>
-                            <% if (reset) {%>
-                                <button id="reset" class="btn btn-primary">Reset</button>
-                                <% } %>
-        </div>
-        <% } %>
+                        <p class="list-group-item-text">
+                            <%= item.text %>
+                        </p>
+                    </li>
+                    <% }); }%>
+            </ul>
+            <div style="text-align: center;">
+                <% if (loadMore) {%>
+                    <button id="load-more" class="btn btn-primary">Load More</button>
+                    <% } %>
+                        <% if (orderByText) {%>
+                            <button id="order-by-text" class="btn btn-primary">Order by Text</button>
+                            <% } %>
+                                <% if (reset) {%>
+                                    <button id="reset" class="btn btn-primary">Reset</button>
+                                    <% } %>
+            </div>
+            <% } %>
     </script>
     <script type="text/template" id="user-following-template">
         <% if (following) { %>
-        <h3>Following</h3>
-        <ul class="list-group">
-            <% _.each(following, function(following) {%>
-                <li class="list-group-item">
-                    <h4 class="list-group-item-heading"><%= following.name %> <small>@<%= following.username %></small></h4>
-                </li>
-                <% }); %>
-        </ul>
-        <% } %>
+            <h3>Following</h3>
+            <ul class="list-group">
+                <% _.each(following, function(following) {%>
+                    <li class="list-group-item">
+                        <h4 class="list-group-item-heading"><%= following.name %> <small>@<%= following.username %></small></h4>
+                    </li>
+                    <% }); %>
+            </ul>
+            <% } %>
     </script>
     <script type="text/template" id="user-tweet-box-template">
         <% if (user) { %>
-        <h3><%= user.name %> <small style="float:right;">Tweet Count: <%= user.tweetCount %></small></h3>
-        <form>
-            <div class="form-group">
-                <textarea id="tweet-box" class="form-control" placeholder="Tweet as <%= user.name %>"></textarea>
-            </div>
-            <div class="form-group">
-                <button id="tweet-button" class="btn btn-primary" disabled="disabled">Tweet</button>
-                <span id="tweet-length" style="margin-left: 1rem; color: gray;">140</span>
-            </div>
-        </form>
-        <% } else { %>
-        <h3>Please log in or register</h3>
-        <form id="login-form">
-            <div class="form-group">
-                <input id="login-email" class="form-control" type="email" placeholder="Email..." required>
-            </div>
-            <div class="form-group">
-                <input id="login-password" class="form-control" type="password" placeholder="password" required>
-            </div>
-            <div class="form-group">
-                <button id="login-button" class="btn btn-primary required-button" disabled="disabled" target="login">Login</button>
-                <button id="register-button" class="btn btn-secondary required-button" disabled="disabled" target="register">Register</button>
-            </div>
-        </form>
-        <% } %>
+            <h3><%= user.name %> <small style="float:right;">Tweet Count: <%= user.tweetCount %></small></h3>
+            <form>
+                <div class="form-group">
+                    <textarea id="tweet-box" class="form-control" placeholder="Tweet as <%= user.name %>"></textarea>
+                </div>
+                <div class="form-group">
+                    <button id="tweet-button" class="btn btn-primary" disabled="disabled">Tweet</button>
+                    <span id="tweet-length" style="margin-left: 1rem; color: gray;">140</span>
+                </div>
+            </form>
+            <% } else { %>
+                <h3>Please log in or register</h3>
+                <form id="login-form">
+                    <div class="form-group">
+                        <input id="login-email" class="form-control" type="email" placeholder="Email..." required>
+                    </div>
+                    <div class="form-group">
+                        <input id="login-password" class="form-control" type="password" placeholder="password" required>
+                    </div>
+                    <div class="form-group">
+                        <button id="login-button" class="btn btn-primary required-button" disabled="disabled" target="login">Login</button>
+                        <button id="register-button" class="btn btn-secondary required-button" disabled="disabled" target="register">Register</button>
+                    </div>
+                </form>
+                <% } %>
     </script>
     <script type="text/template" id="user-details-template">
-        <% if (user) { %>
-        <h3>User Details</h3>
-        <form id="user-form">
-            <div class="form-group">
-                <label for="user-username">Username</label>
-                <input id="user-username" class="form-control" type="text" placeholder="Username..." value="<%= user.username %>">
-            </div>
-            <div class="form-group">
-                <label for="user-name">Name</label>
-                <input id="user-name" class="form-control" type="text" placeholder="Name..." value="<%= user.name %>">
-            </div>
-            <div class="form-group">
-                <button id="save-user" class="btn btn-primary" target="save">Save</button>
-                <button id="log-out-button" class="btn btn-secondary" target="logout">Log Out</button>
-            </div>
-        </form>
+        <div class="row">
+            <% if (user) { %>
+                <div class="col-md-6">
+                    <h3>User Details</h3>
+                    <form id="user-form">
+                        <div class="form-group">
+                            <label for="user-username">Username</label>
+                            <input id="user-username" class="form-control" type="text" placeholder="Username..." value="<%= user.username %>">
+                        </div>
+                        <div class="form-group">
+                            <label for="user-name">Name</label>
+                            <input id="user-name" class="form-control" type="text" placeholder="Name..." value="<%= user.name %>">
+                        </div>
+                        <div class="form-group">
+                            <button id="save-user" class="btn btn-primary" target="save">Save</button>
+                            <button id="log-out-button" class="btn btn-secondary" target="logout">Log Out</button>
+                        </div>
+                    </form>
+                </div>
+                <% } %>
+                    <% if (users) { %>
+                    <div class="col-md-6">
+                    <h3>Users (click to follow/unfollow)</h3>
+                    <form id="users-form">
+                        <ul class="list-group">
+                        <% _.each(users, function (user, key) {%>
+                        <li class="list-group-item">
+                            <div class="input-group">
+                                <input id="checkbox-<%= user.username %>" type="checkbox" class="follow-checkbox" user-key="<%= key %>">
+                                <label for="checkbox-<%= user.username %>">
+                                    <%= user.username %>
+                                </label>
+                            </div>
+                        </li>
+                        <%});%>
+                            </ul>
+                            </form>
+        </div>
         <% } %>
+            </div>
     </script>
     <!-- Dependencies -->
     <script src="https://cdn.firebase.com/js/client/2.2.9/firebase-debug.js"></script>

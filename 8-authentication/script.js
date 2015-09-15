@@ -82,28 +82,35 @@
         },
         setUserDetails = function(userKey, user) {
             console.info('called setUserDetails with this user:', user);
-            $('#user-details').html(_.template($('#user-details-template').html())({
-                user: user
-            })).find('form').on('submit', function(e) {
-                e.preventDefault();
+            usersRef.once('value', function(snap) {
+                var users = snap.val();
+                $('#user-details').html(_.template($('#user-details-template').html())({
+                    user: user,
+                    users: users
+                })).find('form').on('submit', function(e) {
+                    e.preventDefault();
 
-                var userDetailsForm = $(e.target),
-                    clickedButton = userDetailsForm.find('button:focus'),
-                    target = clickedButton.attr('target'),
-                    username = userDetailsForm.find('#user-username').val(),
-                    name = userDetailsForm.find('#user-name').val();
+                    var userDetailsForm = $(e.target),
+                        clickedButton = userDetailsForm.find('button:focus'),
+                        target = clickedButton.attr('target'),
+                        username = userDetailsForm.find('#user-username').val(),
+                        name = userDetailsForm.find('#user-name').val();
 
-                if (target === 'save') {
-                    if (username && username.length) {
-                        usersRef.child(userKey).child('username').set(username);
+                    if (target === 'save') {
+                        if (username && username.length) {
+                            usersRef.child(userKey).child('username').set(username);
+                        }
+                        if (name && name.length) {
+                            usersRef.child(userKey).child('name').set(name);
+                        }
+                        refreshUser(userKey);
+                    } else if (target === 'logout') {
+                        ref.unauth();
                     }
-                    if (name && name.length) {
-                        usersRef.child(userKey).child('name').set(name);
-                    }
-                    refreshUser(userKey);
-                } else if (target === 'logout') {
-                    ref.unauth();
-                }
+                }).parent().find('.follow-checkbox').on('change', function(e) {
+                    var target = $(e.target);
+                    handleFollowChange(userKey, target.attr('user-key'), target.is(':checked'));
+                });
             });
         };
 
@@ -118,6 +125,8 @@
         tweetsRef,
         tweetAddedHandler,
         tweetRemovedHandler,
+        followingRef,
+        followingHandler,
         tweetBoxClickHandler,
         stopListeningToTimeline = function() {
             if (typeof timelineRef === 'object' && typeof timelineHandler) {
@@ -137,6 +146,10 @@
 
             if (typeof tweetsRef === 'object' && typeof tweetRemovedHandler) {
                 tweetsRef.off("child_removed", tweetRemovedHandler);
+            }
+
+            if (typeof followingRef === 'object' && typeof followingHandler) {
+                followingRef.off("value", followingHandler);
             }
 
         },
@@ -218,7 +231,8 @@
 
             queryTimeline();
 
-            userObjectsRef.child('following').child(userKey).once('value', function(snap) {
+            followingRef = userObjectsRef.child('following').child(userKey);
+            followingHandler = followingRef.on('value', function(snap) {
                 setFollowing(snap.val());
             });
 
@@ -285,7 +299,7 @@
                                 var follower = childSnap.val();
 
                                 tweet.tweetKey = tweetRef.key();
-
+                                tweet.userKey = tweetUser.key;
                                 tweet.user = tweetUser;
 
                                 userObjectsRef.child('timeline').child(follower.key).push(tweet, function(err) {
@@ -451,8 +465,8 @@
 
     });
 
-    $(document.body).on('submit', function (e) {
-       e.preventDefault(); 
+    $(document.body).on('submit', function(e) {
+        e.preventDefault();
     });
     $(document.body).on('click', '#login-form', function(e) {
         var loginForm = $('#login-form'),
@@ -485,5 +499,88 @@
 
         return target === 'login' ? login() : register();
     });
+
+    var handleFollowChange = function(userKey, targetKey, isFollowed) {
+        // Get logged in user's timeline
+        // Get target user's tweets
+        // Add or remove tweets from logged-in user's timeline
+
+        // Check logged-in user's following list for the target user
+        userObjectsRef.child('following').child(userKey).orderByChild('key').equalTo(targetKey).once('value', function(snap) {
+            // If isFollowed and the target user does not exist in the list, add him/her
+            if (isFollowed && snap.numChildren() === 0) {
+                usersRef.child(targetKey).once('value', function(snap) {
+                    var targetUser = snap.val();
+                    userObjectsRef.child('following').child(userKey).push({
+                        email: targetUser.email,
+                        key: snap.key(),
+                        name: targetUser.name,
+                        username: targetUser.username
+                    });
+                });
+
+            } else { // Otherwise, remove all matching child refs.
+                snap.forEach(function(childSnap) {
+                    childSnap.ref().remove();
+                });
+            }
+        });
+
+        // Get target user's followers list
+        userObjectsRef.child('followers').child(targetKey).child('list').orderByChild('key').equalTo(userKey).once('value', function(snap) {
+            // If isFollowed and the logged-in user does not exist in the list, add him/her
+            if (isFollowed && snap.numChildren() === 0) {
+                usersRef.child(userKey).once('value', function(snap) {
+                    var loggedInUser = snap.val();
+                    userObjectsRef.child('followers').child(targetKey).push({
+                        email: loggedInUser.email,
+                        key: snap.key(),
+                        name: loggedInUser.name,
+                        username: loggedInUser.username
+                    });
+                });
+            } else { // Otherwise, remove all matching child refs
+                snap.forEach(function(childSnap) {
+                    childSnap.ref().remove();
+                });
+            }
+        });
+
+        // Get logged-in user's timeline
+        userObjectsRef.child('timeline').child(userKey).orderByChild('userKey').equalTo(targetKey).once('value', function(snap) {
+            // If isFollowed and the target's tweets do not exist, add them, careful to preserve the tweets' "timestamped" keys for ordering purposes
+            if (isFollowed && snap.numChildren() === 0) {
+                usersRef.child(targetKey).once('value', function(snap) {
+                    var targetUser = snap.val(),
+                        userTimelineRef = userObjectsRef.child('timeline').child(userKey);
+
+                    userObjectsRef.child('tweets').child(targetKey).once('value', function(snap) {
+                        snap.forEach(function(childSnap) {
+                            var tweet = childSnap.val(),
+                                tweetKey = childSnap.key();
+
+                            userTimelineRef.child(tweetKey).set({
+                                created: tweet.created,
+                                text: tweet.text,
+                                tweetKey: tweetKey,
+                                userKey: targetKey,
+                                user: {
+                                    email: targetUser.email,
+                                    key: targetKey,
+                                    name: targetUser.name,
+                                    username: targetUser.username
+                                }
+                            });
+                        });
+                    });
+                });
+
+            } else {
+                snap.forEach(function(childSnap) {
+                    childSnap.ref().remove();
+                });
+            }
+        });
+    };
 
 })();
