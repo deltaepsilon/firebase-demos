@@ -1,0 +1,52 @@
+{
+    "rules": {      
+        "twitterClone": {
+          "accessControlList": {
+            "$uid": {
+              ".read": "auth.uid == $uid || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true",
+              ".write": "auth.uid == $uid || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"
+            }
+          },
+          "users": {
+            ".read": "true",
+            "$userKey": {
+              ".indexOn": ["name"],  
+              ".write": "$userKey == root.child('twitterClone').child('accessControlList').child(auth.uid).child('userKey').val() || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"
+            }
+          },
+          "userObjects": {
+            "tweets": {
+              ".read": true,
+              "$userKey": {
+                ".indexOn": ["text"],
+                ".write": "$userKey == root.child('twitterClone').child('accessControlList').child(auth.uid).child('userKey').val() || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"
+              }
+            },
+            "timeline": {
+              ".read": true,
+              ".write": true,
+              "$userKey": {
+                ".indexOn": ["tweetKey", "userKey"]
+              }
+            },
+            "following": {
+              ".read": true,
+              ".write": true,
+              "$userKey": {
+                ".indexOn": ["key"]
+              }
+            },
+            "followers": {
+              ".read": true,
+              ".write": true,
+              "$userKey": {
+                "list": {
+                  ".indexOn": ["key"]
+                }
+              }
+            }
+          }
+        }
+        
+    }
+}

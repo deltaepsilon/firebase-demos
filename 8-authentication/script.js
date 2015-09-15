@@ -438,7 +438,7 @@
      * - Save authData.password.email as "email"
      * - Use .once() and the "value" event to listen to /twitterClone/accessControlList/***uid***
      * - If a matching entry in the ACL exists, set /twitterClone/accessControlList/###uid###/lastLogin to "dateString"
-     * - If no matching ACL entry exists, create one with these keys: { email: email || false, lastLogin: dateString, admin: false }
+     * - If no matching ACL entry exists, create one with these keys: { email: email || false, lastLogin: dateString, isAdmin: false }
      * - Create a callback handler that we'll use for both of the last two cases. This callback handler takes and error argument. If an error is returned, log it out, otherwise, continue
      * - Handle a successful callback by first checking if an ACL entry exists from the earlier step. If it does, call handleUserChange(entry.userKey)
      * - If the ACL entry does not exist, create a new user ref using usersRef.push() and saving it as "userRef"
@@ -502,7 +502,7 @@
                     snap.ref().set({
                         email: email || false,
                         lastLogin: dateString,
-                        admin: false
+                        isAdmin: false
                     }, callback);
                 }
             });
