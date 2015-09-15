@@ -154,7 +154,7 @@
                         <% _.each(users, function (user, key) {%>
                         <li class="list-group-item">
                             <div class="input-group">
-                                <input id="checkbox-<%= user.username %>" type="checkbox" class="follow-checkbox" user-key="<%= key %>">
+                                <input id="checkbox-<%= user.username %>" type="checkbox" class="follow-checkbox" user-key="<%= key %>" <%if (user.initiallyFollowed){%>checked="checked"<%};%>>
                                 <label for="checkbox-<%= user.username %>">
                                     <%= user.username %>
                                 </label>

@@ -85,32 +85,41 @@
             usersRef.once('value', function(snap) {
                 var users = snap.val();
                 delete users[userKey];
-                $('#user-details').html(_.template($('#user-details-template').html())({
-                    user: user,
-                    users: users
-                })).find('form').on('submit', function(e) {
-                    e.preventDefault();
 
-                    var userDetailsForm = $(e.target),
-                        clickedButton = userDetailsForm.find('button:focus'),
-                        target = clickedButton.attr('target'),
-                        username = userDetailsForm.find('#user-username').val(),
-                        name = userDetailsForm.find('#user-name').val();
+                userObjectsRef.child('following').child(userKey).once('value', function(snap) {
+                    _.each(snap.val(), function (following) {
+                        if (users[following.key]) {
+                            users[following.key].initiallyFollowed = true;      
+                        }
+                    });
 
-                    if (target === 'save') {
-                        if (username && username.length) {
-                            usersRef.child(userKey).child('username').set(username);
+                    $('#user-details').html(_.template($('#user-details-template').html())({
+                        user: user,
+                        users: users
+                    })).find('form').on('submit', function(e) {
+                        e.preventDefault();
+
+                        var userDetailsForm = $(e.target),
+                            clickedButton = userDetailsForm.find('button:focus'),
+                            target = clickedButton.attr('target'),
+                            username = userDetailsForm.find('#user-username').val(),
+                            name = userDetailsForm.find('#user-name').val();
+
+                        if (target === 'save') {
+                            if (username && username.length) {
+                                usersRef.child(userKey).child('username').set(username);
+                            }
+                            if (name && name.length) {
+                                usersRef.child(userKey).child('name').set(name);
+                            }
+                            handleUserChange(userKey);
+                        } else if (target === 'logout') {
+                            ref.unauth();
                         }
-                        if (name && name.length) {
-                            usersRef.child(userKey).child('name').set(name);
-                        }
-                        refreshUser(userKey);
-                    } else if (target === 'logout') {
-                        ref.unauth();
-                    }
-                }).parent().find('.follow-checkbox').on('change', function(e) {
-                    var target = $(e.target);
-                    handleFollowChange(userKey, target.attr('user-key'), target.is(':checked'));
+                    }).parent().find('.follow-checkbox').on('change', function(e) {
+                        var target = $(e.target);
+                        handleFollowChange(userKey, target.attr('user-key'), target.is(':checked'));
+                    });
                 });
             });
         };
@@ -241,7 +250,8 @@
 
             userHandler = userRef.on('value', function(snap) {
                 setTweetBox(snap.val());
-                setUserDetails(snap.key(), snap.val());
+                setUserDetails(userKey, snap.val());
+                handleFollowChange(userKey, userKey, true);
             });
 
             var userTweetBox = $('#user-tweet-box');
@@ -362,47 +372,11 @@
 
     };
 
-    var ref = new Firebase(firebaseRoot),
-        refreshFollower = function(followedKey, followerKey) {
-            // Find followed user
-            // Find followed user followers list
-            // Find follower following list
-            // Add or update followed user deets for followers list and following list
+    var ref = new Firebase(firebaseRoot);
 
-
-            // userObjectsRef.child('following').child(userKey).orderByChild('key').equalTo(userKey).once('value', function(snap) {
-            //     var followingCount = snap.numChildren(),
-            //         followingRef = snap.ref(),
-            //         selfRef;
-
-            //     snap.forEach(function(childSnap) {
-            //         selfRef = childSnap.ref();
-            //     });
-
-            //     usersRef.child(userKey).once('value', function(snap) {
-            //         var user = snap.val(),
-            //             followingObject = {
-            //                 email: user.email,
-            //                 name: user.name,
-            //                 username: user.username,
-            //                 key: userKey
-            //             };
-
-            //         if (!followingCount) {
-            //             followingRef.push(followingObject);
-            //         } else {
-            //             selfRef.set(followingObject);
-            //         }
-            //     });
-
-
-            // });
-        },
-        refreshUser = function(userKey) {
-            refreshFollower(userKey, userKey);
-            handleUserChange(userKey);
-        };
-
+    /*
+     * 
+     */
     ref.onAuth(function(authData) {
         if (!authData) {
             setTweetBox();
@@ -426,7 +400,7 @@
                         var userKey = entry ? entry.userKey : false;
 
                         if (userKey) {
-                            refreshUser(userKey);
+                            handleUserChange(userKey);
                         } else {
                             var userRef = usersRef.push();
 
@@ -439,7 +413,7 @@
                                     console.warn(err);
                                 } else {
                                     snap.ref().child('userKey').set(userRef.key(), function(err) {
-                                        return err ? console.warn(err) : refreshUser(userRef.key());
+                                        return err ? console.warn(err) : handleUserChange(userRef.key());
                                     });
                                 }
 
@@ -502,10 +476,6 @@
     });
 
     var handleFollowChange = function(userKey, targetKey, isFollowed) {
-        // Get logged in user's timeline
-        // Get target user's tweets
-        // Add or remove tweets from logged-in user's timeline
-
         // Check logged-in user's following list for the target user
         userObjectsRef.child('following').child(userKey).orderByChild('key').equalTo(targetKey).once('value', function(snap) {
             // If isFollowed and the target user does not exist in the list, add him/her
@@ -538,11 +508,27 @@
                         key: snap.key(),
                         name: loggedInUser.name,
                         username: loggedInUser.username
+                    }, function(err) {
+                        if (err) {
+                            console.warn(err);
+                        } else {
+                            userObjectsRef.child('followers').child(targetKey).child('count').transaction(function(i) {
+                                return Math.max(i - 1, 0);
+                            });
+                        }
                     });
                 });
             } else { // Otherwise, remove all matching child refs
                 snap.forEach(function(childSnap) {
-                    childSnap.ref().remove();
+                    childSnap.ref().remove(function(err) {
+                        if (err) {
+                            console.warn(err);
+                        } else {
+                            userObjectsRef.child('followers').child(targetKey).child('count').transaction(function(i) {
+                                return Math.min(i + 1, 0);
+                            });
+                        }
+                    });
                 });
             }
         });

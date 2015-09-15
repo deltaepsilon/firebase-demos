@@ -5,9 +5,7 @@
         
         "twitterClone": {
           "users": {
-            "$userKey": {
-              ".indexOn": ["name"] // Optionally index on /twitterClone/users/***userKey***/name
-            }
+            ".indexOn": ["name"] // Optionally index on /twitterClone/users/***userKey***/name
           },
           "userObjects": {
             "tweets": {
@@ -17,7 +15,47 @@
             },
             "timeline": {
               "$userKey": {
-                ".indexOn": ["tweetKey"] // Index on /twitterClone/userObjects/timeline/***userKey***/tweetKey
+                ".indexOn": ["tweetKey", "userKey"] // Index on /twitterClone/userObjects/timeline/***userKey***/tweetKey and /twitterClone/userObjects/timeline/***userKey***/userKey
+              }
+            },
+            "following": {
+              "$userKey": {
+                ".indexOn": ["key"] // Index on /twitterClone/userObjects/following/***userKey***/key
+              }
+            },
+            "followers": {
+              "$userKey": {
+                "list": {
+                  ".indexOn": ["key"] // Index on /twitterClone/userObjects/followers/***userKey***/list/key
+                }
+              }
+            }
+          }
+        }
+        
+    }
+}
+
+{
+    "rules": {
+        ".read": true,
+        ".write": true,
+        
+        "twitterClone": {
+          "users": {
+            "$userKey": {
+              ".indexOn": ["name"] 
+            }
+          },
+          "userObjects": {
+            "tweets": {
+              "$userKey": {
+                ".indexOn": ["text"] 
+              }
+            },
+            "timeline": {
+              "$userKey": {
+                ".indexOn": ["tweetKey"] 
               }
             }
           }
