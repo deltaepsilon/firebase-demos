@@ -3,46 +3,32 @@
         "twitterClone": {
           "accessControlList": {
             "$uid": {
-              ".read": "auth.uid == $uid || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true",
+              ".read": "auth.uid == $uid || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true", // Checks that the accessControlList entry's key matches the auth's uid or that the user is an admin
               ".write": "auth.uid == $uid || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"
             }
           },
           "users": {
-            ".read": true,
+            ".read": "root.child('twitterClone').child('accessControlList').child(auth.uid).exists()", // Check for an accessControlList entry           
+            ".indexOn": ["name"],
             "$userKey": {
-              ".indexOn": ["name"],  
-              ".write": "$userKey == root.child('twitterClone').child('accessControlList').child(auth.uid).child('userKey').val() || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"
+              ".write": "$userKey == root.child('twitterClone').child('accessControlList').child(auth.uid).child('userKey').val()" // Checks that the $userKey matches the userKey attribute in the accessControlList entry
             }
           },
           "userObjects": {
-            "tweets": {
-              ".read": true,
+            "$tweetObject": {
+              ".read": "root.child('twitterClone').child('accessControlList').child(auth.uid).exists()",
+              ".write": "root.child('twitterClone').child('accessControlList').child(auth.uid).exists()",
               "$userKey": {
-                ".indexOn": ["text"],
-                ".write": "$userKey == root.child('twitterClone').child('accessControlList').child(auth.uid).child('userKey').val() || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"
-              }
-            },
-            "timeline": {
-              ".read": true,
-              ".write": true,
-              "$userKey": {
-                ".indexOn": ["tweetKey", "userKey"]
-              }
-            },
-            "following": {
-              ".read": true,
-              ".write": true,
-              "$userKey": {
-                ".indexOn": ["key"]
+                ".indexOn": ["text", "key", "tweetKey", "userKey"]
               }
             },
             "followers": {
-              ".read": true,
-              ".write": true,
+              ".read": "root.child('twitterClone').child('accessControlList').child(auth.uid).exists()",
+              ".write": "root.child('twitterClone').child('accessControlList').child(auth.uid).exists()",
               "$userKey": {
                 "list": {
                   ".indexOn": ["key"]
-                }
+                }                
               }
             }
           }

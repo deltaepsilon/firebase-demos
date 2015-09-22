@@ -484,20 +484,21 @@
                             } else {
                                 var userRef = usersRef.push();
 
-                                userRef.set({
-                                    email: email,
-                                    username: email,
-                                    name: 'Anonymous'
-                                }, function(err) {
+                                snap.ref().child('userKey').set(userRef.key(), function(err) {
                                     if (err) {
                                         console.warn(err);
                                     } else {
-                                        snap.ref().child('userKey').set(userRef.key(), function(err) {
+                                        userRef.set({
+                                            email: email,
+                                            username: email,
+                                            name: 'Anonymous'
+                                        }, function(err) {
                                             return err ? console.warn(err) : handleUserChange(userRef.key());
                                         });
                                     }
 
                                 });
+
                             }
                         }
 
