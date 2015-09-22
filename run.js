@@ -9,9 +9,11 @@ var _ = require('underscore'),
 
 // Environment
 var environment = require('./environment'),
+    firebaseSecret = environment.firebaseSecret,
     root = environment.firebaseRoot,
     rootRef = new firebase(root),
-    promises = [],
+    authDeferred = Q.defer(),
+    promises = [authDeferred.promise],
     fakeUsers,
     getFakeUsers = function() {
         return _.clone(fakeUsers);
@@ -27,6 +29,10 @@ var environment = require('./environment'),
 
         return result;
     };
+
+rootRef.authWithCustomToken(firebaseSecret, function(err, authData) {
+    return err ? authDeferred.reject(err) : authDeferred.resolve(authData);
+});
 
 // Create fake Star Wars data
 var createFakeStarWarsData = function() {
@@ -104,13 +110,15 @@ var createFakeStarWarsData = function() {
 var starWarsPromise = (function() {
     var deferred = Q.defer();
 
-    fs.readJSON('./data/swapi.json', function(err, starWarsData) {
-        if (err) {
-            deferred.reject(err);
-        } else {
-            fakeUsers = starWarsData.users;
-            deferred.resolve(fakeUsers);
-        }
+    authDeferred.promise.then(function() {
+        fs.readJSON('./data/swapi.json', function(err, starWarsData) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                fakeUsers = starWarsData.users;
+                deferred.resolve(fakeUsers);
+            }
+        });
     });
 
     return deferred.promise;

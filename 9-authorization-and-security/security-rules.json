@@ -8,7 +8,7 @@
             }
           },
           "users": {
-            ".read": "true",
+            ".read": true,
             "$userKey": {
               ".indexOn": ["name"],  
               ".write": "$userKey == root.child('twitterClone').child('accessControlList').child(auth.uid).child('userKey').val() || root.child('twitterClone').child('accessControlList').child(auth.uid).child('isAdmin').val() == true"

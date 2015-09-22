@@ -81,47 +81,54 @@
 
         },
         setUserDetails = function(userKey, user) {
-            console.info('called setUserDetails with this user:', user);
-            usersRef.once('value', function(snap) {
-                var users = snap.val();
-                delete users[userKey];
+            console.info('called setUserDetails with this user:', userKey, user);
+            if (!userKey || !user) {
+                setTweetBox();
+                setTimeline();
+                setFollowing();
+            } else {
+                usersRef.once('value', function(snap) {
+                    var users = snap.val();
+                    delete users[userKey];
 
-                userObjectsRef.child('following').child(userKey).once('value', function(snap) {
-                    _.each(snap.val(), function(following) {
-                        if (users[following.key]) {
-                            users[following.key].initiallyFollowed = true;
-                        }
-                    });
-
-                    $('#user-details').html(_.template($('#user-details-template').html())({
-                        user: user,
-                        users: users
-                    })).find('form').on('submit', function(e) {
-                        e.preventDefault();
-
-                        var userDetailsForm = $(e.target),
-                            clickedButton = userDetailsForm.find('button:focus'),
-                            target = clickedButton.attr('target'),
-                            username = userDetailsForm.find('#user-username').val(),
-                            name = userDetailsForm.find('#user-name').val();
-
-                        if (target === 'save') {
-                            if (username && username.length) {
-                                usersRef.child(userKey).child('username').set(username);
+                    userObjectsRef.child('following').child(userKey).once('value', function(snap) {
+                        _.each(snap.val(), function(following) {
+                            if (users[following.key]) {
+                                users[following.key].initiallyFollowed = true;
                             }
-                            if (name && name.length) {
-                                usersRef.child(userKey).child('name').set(name);
+                        });
+
+                        $('#user-details').html(_.template($('#user-details-template').html())({
+                            user: user,
+                            users: users
+                        })).find('form').on('submit', function(e) {
+                            e.preventDefault();
+
+                            var userDetailsForm = $(e.target),
+                                clickedButton = userDetailsForm.find('button:focus'),
+                                target = clickedButton.attr('target'),
+                                username = userDetailsForm.find('#user-username').val(),
+                                name = userDetailsForm.find('#user-name').val();
+
+                            if (target === 'save') {
+                                if (username && username.length) {
+                                    usersRef.child(userKey).child('username').set(username);
+                                }
+                                if (name && name.length) {
+                                    usersRef.child(userKey).child('name').set(name);
+                                }
+                                handleUserChange(userKey);
+                            } else if (target === 'logout') {
+                                logOut();
                             }
-                            handleUserChange(userKey);
-                        } else if (target === 'logout') {
-                            logOut();
-                        }
-                    }).parent().find('.follow-checkbox').on('change', function(e) {
-                        var target = $(e.target);
-                        handleFollowChange(userKey, target.attr('user-key'), target.is(':checked'));
+                        }).parent().find('.follow-checkbox').on('change', function(e) {
+                            var target = $(e.target);
+                            handleFollowChange(userKey, target.attr('user-key'), target.is(':checked'));
+                        });
                     });
                 });
-            });
+            }
+
         };
 
     var firebaseRoot = "https://demos-firebase.firebaseio.com/twitterClone/",
@@ -452,7 +459,7 @@
             setTweetBox();
             setUserDetails();
             setTimeline();
-            setFollowing();
+            // setFollowing();
             stopListening();
         } else {
             var uid = authData.uid,
@@ -526,7 +533,7 @@
                     });
                 });
 
-            } else { // Otherwise, remove all matching child refs.
+            } else if (userKey !== targetKey) { // Otherwise, remove all matching child refs.
                 snap.forEach(function(childSnap) {
                     childSnap.ref().remove();
                 });
@@ -539,7 +546,7 @@
             if (isFollowed && snap.numChildren() === 0) {
                 usersRef.child(userKey).once('value', function(snap) {
                     var loggedInUser = snap.val();
-                    userObjectsRef.child('followers').child(targetKey).push({
+                    userObjectsRef.child('followers').child(targetKey).child('list').push({
                         email: loggedInUser.email,
                         key: snap.key(),
                         name: loggedInUser.name,
@@ -549,19 +556,19 @@
                             console.warn(err);
                         } else {
                             userObjectsRef.child('followers').child(targetKey).child('count').transaction(function(i) {
-                                return Math.max(i - 1, 0);
+                                return Math.max(i + 1, 0);
                             });
                         }
                     });
                 });
-            } else { // Otherwise, remove all matching child refs
+            } else if (userKey !== targetKey) { // Otherwise, remove all matching child refs
                 snap.forEach(function(childSnap) {
                     childSnap.ref().remove(function(err) {
                         if (err) {
                             console.warn(err);
                         } else {
                             userObjectsRef.child('followers').child(targetKey).child('count').transaction(function(i) {
-                                return Math.min(i + 1, 0);
+                                return Math.min(i - 1, 0);
                             });
                         }
                     });
@@ -598,7 +605,7 @@
                     });
                 });
 
-            } else {
+            } else if (userKey !== targetKey) {
                 snap.forEach(function(childSnap) {
                     childSnap.ref().remove();
                 });
