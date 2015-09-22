@@ -450,9 +450,9 @@
      * - Handle a successful callback by first checking if an ACL entry exists from the earlier step. If it does, call handleUserChange(entry.userKey)
      * - If the ACL entry does not exist, create a new user ref using usersRef.push() and saving it as "userRef"
      * - By creating and saving the new ref, we can save it's key before we set the ref, so save the new ref's key as "userKey"
-     * - Set the new userRef with the keys {email: email, username: email, name: 'Anonymous'}
      * - Now set the ACL entry's userKey attribute to "userKey". Hint, the userKey attribute can be found at /twitterClone/accessControlList/###uid###/userKey
-     * - Once the ACL entry's userKey attribute is set, call handleUserChange(userKey)
+     * - Set the new userRef with the keys {email: email, username: email, name: 'Anonymous'}
+     * - Once the new userRef is set, call handleUserChange(userRef.key())
      */
     ref.onAuth(function(authData) {
         if (!authData) {
