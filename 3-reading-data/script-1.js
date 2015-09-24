@@ -26,6 +26,26 @@
         },
         setFollowing = function(following) {
             console.info('called setFollowing with this following:', following);
+            
+            // this is required if users are a separate key
+            var followedUsers = []
+            for(var userKey in following) {
+                followedUsers.push(users[userKey])
+            }
+            // what happens if we have 3 billion users?
+            // so we select each one separately   
+            var followedUsers = []
+            for(var userId in following) {
+                usersRef.child(userKey).once('value', function(snap) {
+                    followedUsers.push(users[userId])    
+
+                    // oh crap, how do we hold off until ALL users are gathered?
+                    $('#user-following').html(_.template($('#user-following-template').html())({
+                        following: following
+                    }));
+                })
+            }         
+
             $('#user-following').html(_.template($('#user-following-template').html())({
                 following: following
             }));
@@ -56,63 +76,59 @@
         };
 
     /*
+     * STEP 1
      * Configure your firebase
      * - Edit the firebaseRoot variable to reference your firebase 
      */
     var firebaseRoot = "https://je-twitter-clone.firebaseio.com/twitterClone/",
-        usersRef = new Firebase(firebaseRoot + 'users'),
-        userObjectsRef = new Firebase(firebaseRoot + 'userObjects');
+        usersRef = new Firebase(firebaseRoot + 'users')
 
     /*
+     * STEP 2
      * Query user data
      * - Create a ref to /twitterClone/users and listen to the that ref's "value" event using the .once function
      * - Call the setUsers function with the resulting data
      */
+    var users; // this is only added when trying to get users
     usersRef.once('value', function(snap) {
+        users = snap.val(); // only added when trying to keep one single data structure
         setUsers(snap.val());
     });
 
 
-    var flattenTimeline = function(tweets) {
-            var keys = Object.keys(tweets),
-                i = keys.length,
-                result = [],
-                tweet;
-            while (i--) {
-                tweet = tweets[keys[i]];
-                tweet.key = keys[i];
-                result.unshift(tweet);
-            }
-            return result;
-        };
+    // var timelineRef,
+    //     timelineHandler,
+    //     userRef,
+    //     userHandler,
+
+    //     flatten = function(tweets) {
+    //         var keys = Object.keys(tweets),
+    //             i = keys.length,
+    //             result = [],
+    //             tweet;
+    //         while (i--) {
+    //             tweet = tweets[keys[i]];
+    //             tweet.key = keys[i];
+    //             result.unshift(tweet);
+    //         }
+    //         return result;
+    //     };
 
     var handleUserChange = function(e) {
         var userKey = $(e.target).val();
 
         if (userKey) {
-            /*
-             * Query timeline data
-             * - Create a ref to /twitterClone/userObjects/timeline/***userKey*** and set to the timelineRef variable
-             * - Listen to timelineRef's "value" event using the .on function to 
-             * - listen to all future events and save the result of the .on function as timelineHandler
-             * - The "value" event's dataSnapshot value is an object with each timeline's key as an attribute. 
-             * - It's much easier to work with an array of objects that have .key attributes, 
-             * - so pass call flattenTimeline(snap.val()) to flattenTimeline the object into an array
-             * - Reverse the flattened array with .reverse() to achieve reverse chronological order
-             * - Call the setTimeline function with the resulting tweets array and userKey as a second argument
-             */
-            timelineRef = userObjectsRef.child('timeline').child(userKey);
-            timelineHandler = timelineRef.on('value', function(snap) {
-                setTimeline(flattenTimeline(snap.val()).reverse(), userKey);
-            });
 
             /*
+             * STEP 3
              * Query following data
              * - Create a ref to /twitterClone/userObjects/following/***userKey*** and listen to the ref's "value" event using the .once function
              * - Call the setFollows function with the resulting data
+             *
+             * DATA DESIGN PROBLEM - in order to display info about users who are being followed, we will have to write a nuts algorithm
              */
-            userObjectsRef.child('following').child(userKey).once('value', function(snap) {
-                setFollowing(snap.val());
+            usersRef.child(userKey).child('following').once('value', function(snap) {
+                setFollowing(snap.val(), users);
             });
 
             /*

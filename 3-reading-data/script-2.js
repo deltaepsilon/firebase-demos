@@ -26,6 +26,7 @@
         },
         setFollowing = function(following) {
             console.info('called setFollowing with this following:', following);
+            
             $('#user-following').html(_.template($('#user-following-template').html())({
                 following: following
             }));
@@ -56,14 +57,17 @@
         };
 
     /*
+     * STEP 1
      * Configure your firebase
      * - Edit the firebaseRoot variable to reference your firebase 
      */
     var firebaseRoot = "https://je-twitter-clone.firebaseio.com/twitterClone/",
-        usersRef = new Firebase(firebaseRoot + 'users'),
-        userObjectsRef = new Firebase(firebaseRoot + 'userObjects');
+        usersRef = new Firebase(firebaseRoot + 'users')
+        followingRef = new Firebase(firebaseRoot + 'following')
+        tweetsRef = new Firebase(firebaseRoot + 'userTweets')
 
     /*
+     * STEP 2
      * Query user data
      * - Create a ref to /twitterClone/users and listen to the that ref's "value" event using the .once function
      * - Call the setUsers function with the resulting data
@@ -73,45 +77,75 @@
     });
 
 
-    var flattenTimeline = function(tweets) {
-            var keys = Object.keys(tweets),
-                i = keys.length,
-                result = [],
-                tweet;
-            while (i--) {
-                tweet = tweets[keys[i]];
-                tweet.key = keys[i];
-                result.unshift(tweet);
-            }
-            return result;
-        };
+    // var timelineRef,
+    //     timelineHandler,
+    //     userRef,
+    //     userHandler,
+    //     tweetsRef,
+    //     tweetAddedHandler,
+    
+    //     flatten = function(tweets) {
+    //         var keys = Object.keys(tweets),
+    //             i = keys.length,
+    //             result = [],
+    //             tweet;
+    //         while (i--) {
+    //             tweet = tweets[keys[i]];
+    //             tweet.key = keys[i];
+    //             result.unshift(tweet);
+    //         }
+    //         return result;
+    //     };
 
     var handleUserChange = function(e) {
         var userKey = $(e.target).val();
 
         if (userKey) {
             /*
+             * STEP 4
              * Query timeline data
              * - Create a ref to /twitterClone/userObjects/timeline/***userKey*** and set to the timelineRef variable
-             * - Listen to timelineRef's "value" event using the .on function to 
-             * - listen to all future events and save the result of the .on function as timelineHandler
-             * - The "value" event's dataSnapshot value is an object with each timeline's key as an attribute. 
-             * - It's much easier to work with an array of objects that have .key attributes, 
-             * - so pass call flattenTimeline(snap.val()) to flattenTimeline the object into an array
+             * - Listen to timelineRef's "value" event using the .on function to listen to all future events and save the result of the .on function as timelineHandler
+             * - The "value" event's dataSnapshot value is an object with each timeline's key as an attribute. It's much easier to work with an array of objects that have .key attributes, so pass call flatten(snap.val()) to flatten the object into an array
              * - Reverse the flattened array with .reverse() to achieve reverse chronological order
              * - Call the setTimeline function with the resulting tweets array and userKey as a second argument
              */
-            timelineRef = userObjectsRef.child('timeline').child(userKey);
-            timelineHandler = timelineRef.on('value', function(snap) {
-                setTimeline(flattenTimeline(snap.val()).reverse(), userKey);
-            });
+
+            // FIRST Algorithm - BAD Data Design!
+            tweetsRef.child(userKey).child('tweets') 
+            // hmm, we need not just this user's tweets, but we need ALL tweets from all people they're following
+            // for each user in following
+            //      get that users tweets
+            //      add those tweets to an array
+            // take the entire list of tweets, order by date
+            // take the top X (25 or so)
+            // display them
+            // SHOOT ME NOW
+
+            // we've already seen that grabbing just a few users is a pain. so will grabbing just a few users tweets.
+            // let's redesign data so that getting a user's timeline is easy
+            // we'll create a timeline node, that is broken down by user, 
+            // then we can just select a single user's timeline and it will have all the data we need
+            // then we can take the top X of those tweets.
+            // should we put it under following? no.  the data needs to be interleaved.
+            // we need a new root node.  let's do that, and we'll also group following, tweets, and timeline 
+            // all under a userObjects node so that if we have other data we create later that isn't associated with a user, 
+            // it won't be confusing.
+            // UPDATE DEMO TO SCRIPT-FINISHED.JS
+
+
+            // timelineRef = userObjectsRef.child('timeline').child(userKey);
+            // timelineHandler = timelineRef.on('value', function(snap) {
+            //     setTimeline(flatten(snap.val()).reverse(), userKey);
+            // });
 
             /*
+             * STEP 3 - simplify after data change
              * Query following data
              * - Create a ref to /twitterClone/userObjects/following/***userKey*** and listen to the ref's "value" event using the .once function
              * - Call the setFollows function with the resulting data
              */
-            userObjectsRef.child('following').child(userKey).once('value', function(snap) {
+            followingRef.child(userKey).once('value', function(snap) {
                 setFollowing(snap.val());
             });
 

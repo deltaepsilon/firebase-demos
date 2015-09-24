@@ -1,0 +1,81 @@
+{
+  "users": {
+    "-JzqV5XxWnos9RJ4-EN-": {
+      "email": "Beru-Whitesun-lars@hotmail.com",
+      "name": "Beru Whitesun lars",
+      "username": "beru-whitesun-lars",
+      "following": {
+          "-JzqV5YpwDR4fzFj-eey": true,
+          "-JzqV5YOo1eQxTC6WVvY": true
+      },
+      "tweets": {
+        "-JzqV5XyL2WfiQWLMdAr": {
+          "created": "1970-01-15T21:59:05-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is Beru Whitesun lars. I hail from Tatooine."
+        },
+        "-JzqV5YAQbRruQPkBqav": {
+          "created": "1970-01-04T04:16:27-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  75. My homeworld's climate is arid."
+        },
+        "-JzqV5YDFOPrODtveaHW": {
+          "created": "1970-01-07T12:04:03-07:00",
+          "fannedOut": true,
+          "text": "Please email me at Beru-Whitesun-lars@hotmail.com. You'll know me by my light skin color."
+        }
+      }
+    },
+    "-JzqV5YOo1eQxTC6WVvY": {
+      "email": "Luke-Skywalker@hotmail.com",
+      "name": "Luke Skywalker",
+      "username": "luke-skywalker",
+      "following": {
+          "-JzqV5XxWnos9RJ4-EN-": true
+      },
+      "tweets": {
+        "-JzqV5YPJm0hoYEhLuSv": {
+          "created": "1970-01-12T11:05:34-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine."
+        },
+        "-JzqV5YSu7RNuYmhPUZp": {
+          "created": "1970-01-16T08:07:47-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  77. My homeworld's climate is arid."
+        },
+        "-JzqV5Ydr8Y6gR2024py": {
+          "created": "1970-01-12T15:16:18-07:00",
+          "fannedOut": true,
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
+        }
+      }
+    },
+    "-JzqV5YpwDR4fzFj-eey": {
+      "email": "Leia-Organa@hotmail.com",
+      "name": "Leia Organa",
+      "username": "leia-organa",
+      "following": {
+          "-JzqV5XxWnos9RJ4-EN-": true,
+          "-JzqV5YOo1eQxTC6WVvY": true
+      },
+      "tweets": {
+        "-JzqV5Z0CcFpkYaK5ffG": {
+          "created": "1970-01-05T21:41:03-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is Leia Organa. I hail from Alderaan."
+        },
+        "-JzqV5ZAkK6jg3BBoehX": {
+          "created": "1970-01-15T03:19:44-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  49. My homeworld's climate is temperate."
+        },
+        "-JzqV5ZI_wtTNHlX8KxG": {
+          "created": "1970-01-03T14:06:31-07:00",
+          "fannedOut": true,
+          "text": "Please email me at Leia-Organa@hotmail.com. You'll know me by my light skin color."
+        }
+      }
+    }
+  }
+} 
