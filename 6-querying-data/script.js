@@ -128,6 +128,7 @@
                     stopListeningToTimeline();
 
                     /*
+                     * STEP 2
                      * Order by text
                      * - Create a ref to /twitterClone/userObjects/timeline/###userKey###, user .orderByChild() to order it by the "text" attribute and set to the timelineRef variable
                      * - Listen to timelineRef's "child_added" event using the .on function to listen to all future events and save the result of the .on function as timelineHandler
@@ -150,7 +151,8 @@
                         reset = false;
 
                     /*
-                     * Query timeline
+                     * STEP 1
+                     * Query timeline 
                      * - Create a ref to /twitterClone/userObjects/timeline/***userKey***, then call orderByKey() and limitToLast(queryLimit). Save the resulting ref to the timelineRef variable
                      */
                     timelineRef = userObjectsRef.child('timeline').child(userKey).orderByKey().limitToLast(queryLimit);
@@ -270,8 +272,11 @@
              * - Use the .orderByChild and .equalTo query functions to limit the results to timeline items with a matching tweetKey. Listen to the result's value with .once
              * - Loop through the resulting snap using .forEach(). There should only be one result... but just to be safe
              * - Call childSnap.ref().remove() on each childSnap
+             * - 
+             * - SHOULD BE DONE ON SERVER
              */
             tweetRemovedHandler = tweetsRef.on('child_removed', function(snap) {
+                // ALSO TALK ABOUT CHILD_CHANGED EVENT AS THE 3RD CHILD EVENT
                 var tweetKey = snap.key();
 
                 userObjectsRef.child('followers').child(userKey).child('list').once('value', function(snap) {

@@ -73,7 +73,9 @@
     });
 
 
-    var flattenTimeline = function(tweets) {
+    var timelineRef,
+        timelineHandler,
+        flattenTimeline = function(tweets) {
             var keys = Object.keys(tweets),
                 i = keys.length,
                 result = [],

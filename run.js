@@ -5,7 +5,9 @@ var _ = require('underscore'),
     Q = require('q'),
     fs = require('fs-extra'),
     axios = require('axios'),
-    slug = require('slug');
+    slug = require('slug'),
+    swapiUserCount = 4,
+    pickKeys = [];
 
 // Environment
 var environment = require('./environment'),
@@ -38,7 +40,7 @@ rootRef.authWithCustomToken(firebaseSecret, function(err, authData) {
 var createFakeStarWarsData = function() {
     var characters = [],
         promises = [],
-        i = 10,
+        i = swapiUserCount,
         swapiRoot = "http://swapi.co/api/",
         getCharacterData = function(i) {
             i += 1;
@@ -71,7 +73,7 @@ var createFakeStarWarsData = function() {
 
     return Q.all(promises).then(function() {
         var promises = [],
-            i = 10;
+            i = swapiUserCount;
 
         while (i--) {
             promises.push(getHomeworldData(i));
@@ -141,7 +143,7 @@ var createEndpointData = function() {
 
             promises.push(fakeDeferred.promise);
 
-            fake = _.pick(fake, 'posts', 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color');
+            fake = _.pick(fake, 'posts', 'email', 'mass', 'name', 'skin_color');
 
             fakeRef.set(fake, function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
@@ -204,7 +206,7 @@ var createDataDesignData = function() {
 
             promises.push(fakeDeferred.promise);
 
-            fakeRef.set(_.pick(fake, 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color'), function(err) {
+            fakeRef.set(_.pick(fake, 'email', 'mass', 'name', 'skin_color'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
 
@@ -379,7 +381,7 @@ var createReadingData = function() {
 
             promises.push(fakeDeferred.promise);
 
-            fakeRef.set(_.pick(fake, 'birth_year', 'email', 'eye_color', 'gender', 'hair_color', 'height', 'mass', 'name', 'skin_color', 'username'), function(err) {
+            fakeRef.set(_.pick(fake, 'email', 'mass', 'name', 'skin_color', 'username'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
 
@@ -406,8 +408,8 @@ var createReadingData = function() {
             });
 
             _.each(follows, function(followed) {
-                var followingDeferred = Q.defer(),
-                    followersDeferred = Q.defer();
+                 var followingDeferred = Q.defer(),
+                     followersDeferred = Q.defer();
 
                 promises.push(followingDeferred.promise);
                 promises.push(followersDeferred.promise);
@@ -448,6 +450,7 @@ var createReadingData = function() {
                     }
 
                 });
+                // followingDeferred.resolve(true); // Resolve this guy so that the rest of the code can run.
 
 
                 followingDeferred.promise.then(function(followedKey) {
@@ -489,7 +492,11 @@ var createReadingData = function() {
 
         Q.all(promises).then(function() {
             readingDataRef.on('value', function(snap) {
-                fs.writeJSON('./3-reading-data/data.json', snap.val(), function(err) {
+                var data = snap.val();
+
+                delete data.userObjects.followers;
+
+                fs.writeJSON('./3-reading-data/data.json', data, function(err) {
                     return err ? deferred.reject(err) : deferred.resolve();
                 });
 
