@@ -55,19 +55,10 @@
             });
         };
 
-    /*
-     * Configure your firebase
-     * - Edit the firebaseRoot variable to reference your firebase 
-     */
     var firebaseRoot = "https://je-twitter-clone.firebaseio.com/twitterClone/",
         usersRef = new Firebase(firebaseRoot + 'users'),
         userObjectsRef = new Firebase(firebaseRoot + 'userObjects');
 
-    /*
-     * Query user data
-     * - Create a ref to /twitterClone/users and listen to the that ref's "value" event using the .once function
-     * - Call the setUsers function with the resulting data
-     */
     usersRef.once('value', function(snap) {
         setUsers(snap.val());
     });
@@ -75,6 +66,19 @@
 
     var timelineRef,
         timelineHandler,
+        userRef,
+        userHandler,
+        stopListening = function() {
+            // If timelineRef and timelineHandler exist, use the .off method to stop listening to 'value' events
+            if (typeof timelineRef === 'object' && typeof timelineHandler) {
+                timelineRef.off("value", timelineHandler);
+            }
+
+            // If userRef and userHandler exist, use the .off method to stop listening to 'value' events
+            if (typeof userRef === 'object' && typeof userHandler) {
+                userRef.off("value", userHandler);
+            }
+        },
         flattenTimeline = function(tweets) {
             var keys = Object.keys(tweets),
                 i = keys.length,
@@ -91,37 +95,20 @@
     var handleUserChange = function(e) {
         var userKey = $(e.target).val();
 
+        // Call stopListening
+        stopListening();
+
         if (userKey) {
-            /*
-             * Query timeline data
-             * - Create a ref to /twitterClone/userObjects/timeline/***userKey*** and set to the timelineRef variable
-             * - Listen to timelineRef's "value" event using the .on function to 
-             * - listen to all future events and save the result of the .on function as timelineHandler
-             * - The "value" event's dataSnapshot value is an object with each timeline's key as an attribute. 
-             * - It's much easier to work with an array of objects that have .key attributes, 
-             * - so pass call flattenTimeline(snap.val()) to flattenTimeline the object into an array
-             * - Reverse the flattened array with .reverse() to achieve reverse chronological order
-             * - Call the setTimeline function with the resulting tweets array and userKey as a second argument
-             */
+
             timelineRef = userObjectsRef.child('timeline').child(userKey);
             timelineHandler = timelineRef.on('value', function(snap) {
                 setTimeline(flattenTimeline(snap.val()).reverse(), userKey);
             });
 
-            /*
-             * Query following data
-             * - Create a ref to /twitterClone/userObjects/following/***userKey*** and listen to the ref's "value" event using the .once function
-             * - Call the setFollows function with the resulting data
-             */
             userObjectsRef.child('following').child(userKey).once('value', function(snap) {
                 setFollowing(snap.val());
             });
 
-            /*
-             * Query user profile
-             * - Create a ref to /twitterClone/users/***userKey*** and listen to the ref's "value" event using the .once function
-             * - Call the setTweetBox function with the resulting data
-             */
             userRef = usersRef.child(userKey);
 
             userHandler = userRef.on('value', function(snap) {
