@@ -131,7 +131,7 @@
             // we need a new root node.  let's do that, and we'll also group following, tweets, and timeline 
             // all under a userObjects node so that if we have other data we create later that isn't associated with a user, 
             // it won't be confusing.
-            // UPDATE DEMO TO SCRIPT-FINISHED.JS
+            // UPDATE DEMO TO SCRIPT-3.JS
 
 
             // timelineRef = userObjectsRef.child('timeline').child(userKey);
