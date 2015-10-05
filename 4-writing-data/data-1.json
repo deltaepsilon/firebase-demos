@@ -1,0 +1,632 @@
+{
+  "userObjects": {
+    "following": {
+      "-K-d3q0TbpfXiJUn33uz": {
+        "-K-d3q8sVBhQ18LvsW6T": {
+          "email": "R2-D2@hotmail.com",
+          "key": "-K-d3q0z80nsGXaHFfmm",
+          "name": "R2-D2",
+          "username": "r2-d2"
+        },
+        "-K-d3q92kpGawzNwOARv": {
+          "email": "Luke-Skywalker@hotmail.com",
+          "key": "-K-d3q0TbpfXiJUn33uz",
+          "name": "Luke Skywalker",
+          "username": "luke-skywalker"
+        },
+        "-K-d3q9BKMEMqBJmXjsQ": {
+          "email": "C-3PO@hotmail.com",
+          "key": "-K-d3q17EPspzPSmYdUd",
+          "name": "C-3PO",
+          "username": "c-3po"
+        }
+      },
+      "-K-d3q0z80nsGXaHFfmm": {
+        "-K-d3q8rRS3chpKwElxp": {
+          "email": "R2-D2@hotmail.com",
+          "key": "-K-d3q0z80nsGXaHFfmm",
+          "name": "R2-D2",
+          "username": "r2-d2"
+        },
+        "-K-d3q91suAW6NfKCBJv": {
+          "email": "Luke-Skywalker@hotmail.com",
+          "key": "-K-d3q0TbpfXiJUn33uz",
+          "name": "Luke Skywalker",
+          "username": "luke-skywalker"
+        },
+        "-K-d3q991fYgp3KmLTxQ": {
+          "email": "C-3PO@hotmail.com",
+          "key": "-K-d3q17EPspzPSmYdUd",
+          "name": "C-3PO",
+          "username": "c-3po"
+        }
+      },
+      "-K-d3q17EPspzPSmYdUd": {
+        "-K-d3q8phHycDNssYemj": {
+          "email": "R2-D2@hotmail.com",
+          "key": "-K-d3q0z80nsGXaHFfmm",
+          "name": "R2-D2",
+          "username": "r2-d2"
+        },
+        "-K-d3q97bxoGGqBjKMB4": {
+          "email": "C-3PO@hotmail.com",
+          "key": "-K-d3q17EPspzPSmYdUd",
+          "name": "C-3PO",
+          "username": "c-3po"
+        },
+        "-K-d3q9XD2I_dSplut2Z": {
+          "email": "Darth-Vader@hotmail.com",
+          "key": "-K-d3q1IdgwiAgLa42mP",
+          "name": "Darth Vader",
+          "username": "darth-vader"
+        }
+      },
+      "-K-d3q1IdgwiAgLa42mP": {
+        "-K-d3q8nlX1BMhQGDndb": {
+          "email": "R2-D2@hotmail.com",
+          "key": "-K-d3q0z80nsGXaHFfmm",
+          "name": "R2-D2",
+          "username": "r2-d2"
+        },
+        "-K-d3q90ijDXk_-4dVJG": {
+          "email": "Luke-Skywalker@hotmail.com",
+          "key": "-K-d3q0TbpfXiJUn33uz",
+          "name": "Luke Skywalker",
+          "username": "luke-skywalker"
+        },
+        "-K-d3q9WBroXG6rIWSl4": {
+          "email": "Darth-Vader@hotmail.com",
+          "key": "-K-d3q1IdgwiAgLa42mP",
+          "name": "Darth Vader",
+          "username": "darth-vader"
+        }
+      }
+    },
+    "timeline": {
+      "-K-d3q0TbpfXiJUn33uz": {
+        "-K-d3qFt-0g0Bd_axiKz": {
+          "created": "1970-01-17T07:50:11-07:00",
+          "text": "Hello! My name is R2-D2. I hail from Naboo.",
+          "tweetKey": "-K-d3q11X-uR1YV7_bGr",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qFyufFFCI5-dnz0": {
+          "created": "1970-01-13T08:47:50-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is temperate.",
+          "tweetKey": "-K-d3q13RN-zmPBQMrju",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qG4wqOK74j2E57E": {
+          "created": "1970-01-16T16:42:58-07:00",
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color.",
+          "tweetKey": "-K-d3q15XXWZfpsCcihL",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qHhTeCDjhv0zvSr": {
+          "created": "1970-01-07T23:52:05-07:00",
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine.",
+          "tweetKey": "-K-d3q0X8vgGJsuToKcq",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHkYOtjv8VxXlRb": {
+          "created": "1970-01-14T09:51:26-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q0m0C_c_NGUuaH7",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHnox8qd5eA9VId": {
+          "created": "1970-01-01T06:16:31-07:00",
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color.",
+          "tweetKey": "-K-d3q0ogySNQFzX5p0G",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHu-wGFjQ8iNvvc": {
+          "created": "1970-01-04T06:49:15-07:00",
+          "text": "Hello! My name is C-3PO. I hail from Tatooine.",
+          "tweetKey": "-K-d3q195K1lX2fsWggZ",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qI2d_VweK9bsAY_": {
+          "created": "1970-01-05T13:31:01-07:00",
+          "text": "I have a mass of  75. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q1AQN1IijbPryEp",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qI9aqAIixEdV2vb": {
+          "created": "1970-01-12T10:06:03-07:00",
+          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color.",
+          "tweetKey": "-K-d3q1Enzhwu2jlRBhE",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        }
+      },
+      "-K-d3q0z80nsGXaHFfmm": {
+        "-K-d3qFt-0g0Bd_axiL-": {
+          "created": "1970-01-07T16:37:00-07:00",
+          "text": "Hello! My name is R2-D2. I hail from Naboo.",
+          "tweetKey": "-K-d3q11X-uR1YV7_bGr",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qFzfe94gyS_hjiZ": {
+          "created": "1970-01-03T15:34:46-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is temperate.",
+          "tweetKey": "-K-d3q13RN-zmPBQMrju",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qG5rT3VeJd7VR1d": {
+          "created": "1970-01-06T07:40:16-07:00",
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color.",
+          "tweetKey": "-K-d3q15XXWZfpsCcihL",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qHiH_6nAElwH-zE": {
+          "created": "1970-01-16T10:55:29-07:00",
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine.",
+          "tweetKey": "-K-d3q0X8vgGJsuToKcq",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHkYOtjv8VxXlRc": {
+          "created": "1970-01-04T16:10:18-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q0m0C_c_NGUuaH7",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHnox8qd5eA9VIe": {
+          "created": "1970-01-04T02:53:03-07:00",
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color.",
+          "tweetKey": "-K-d3q0ogySNQFzX5p0G",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHy1XmzqKQEBmpB": {
+          "created": "1970-01-03T17:18:56-07:00",
+          "text": "Hello! My name is C-3PO. I hail from Tatooine.",
+          "tweetKey": "-K-d3q195K1lX2fsWggZ",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qI2d_VweK9bsAYa": {
+          "created": "1970-01-14T21:34:42-07:00",
+          "text": "I have a mass of  75. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q1AQN1IijbPryEp",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qIAf0Vger0ZR92d": {
+          "created": "1970-01-13T07:01:09-07:00",
+          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color.",
+          "tweetKey": "-K-d3q1Enzhwu2jlRBhE",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        }
+      },
+      "-K-d3q17EPspzPSmYdUd": {
+        "-K-d3qFuMi-eVxIF5MIr": {
+          "created": "1970-01-05T02:27:58-07:00",
+          "text": "Hello! My name is R2-D2. I hail from Naboo.",
+          "tweetKey": "-K-d3q11X-uR1YV7_bGr",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qFzfe94gyS_hji_": {
+          "created": "1970-01-12T23:09:44-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is temperate.",
+          "tweetKey": "-K-d3q13RN-zmPBQMrju",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qG7pmnaFyemeF1P": {
+          "created": "1970-01-05T11:21:59-07:00",
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color.",
+          "tweetKey": "-K-d3q15XXWZfpsCcihL",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qHzYP7SNS30AkKP": {
+          "created": "1970-01-14T22:14:09-07:00",
+          "text": "Hello! My name is C-3PO. I hail from Tatooine.",
+          "tweetKey": "-K-d3q195K1lX2fsWggZ",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qI4BhWh11sw7gaN": {
+          "created": "1970-01-09T20:09:03-07:00",
+          "text": "I have a mass of  75. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q1AQN1IijbPryEp",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qIAf0Vger0ZR92e": {
+          "created": "1970-01-05T07:06:17-07:00",
+          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color.",
+          "tweetKey": "-K-d3q1Enzhwu2jlRBhE",
+          "user": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-d3q17EPspzPSmYdUd",
+            "name": "C-3PO",
+            "username": "c-3po"
+          },
+          "userKey": "-K-d3q17EPspzPSmYdUd"
+        },
+        "-K-d3qLSSPOshxo5kTZ3": {
+          "created": "1970-01-07T20:03:18-07:00",
+          "text": "Hello! My name is Darth Vader. I hail from Tatooine.",
+          "tweetKey": "-K-d3q1Jac9gbqlwnC93",
+          "user": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-d3q1IdgwiAgLa42mP",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "userKey": "-K-d3q1IdgwiAgLa42mP"
+        },
+        "-K-d3qLaeta8_yyaiaSy": {
+          "created": "1970-01-16T15:48:25-07:00",
+          "text": "I have a mass of  136. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q1M1y9i8KCTweck",
+          "user": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-d3q1IdgwiAgLa42mP",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "userKey": "-K-d3q1IdgwiAgLa42mP"
+        },
+        "-K-d3qLd175ieJME2UvO": {
+          "created": "1970-01-13T15:57:41-07:00",
+          "text": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color.",
+          "tweetKey": "-K-d3q1N-VuduRktjJwh",
+          "user": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-d3q1IdgwiAgLa42mP",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "userKey": "-K-d3q1IdgwiAgLa42mP"
+        }
+      },
+      "-K-d3q1IdgwiAgLa42mP": {
+        "-K-d3qFw3txocIdqaAgu": {
+          "created": "1970-01-04T01:35:34-07:00",
+          "text": "Hello! My name is R2-D2. I hail from Naboo.",
+          "tweetKey": "-K-d3q11X-uR1YV7_bGr",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qG-u90qeu8WGHhU": {
+          "created": "1970-01-11T19:26:39-07:00",
+          "text": "I have a mass of  32. My homeworld's climate is temperate.",
+          "tweetKey": "-K-d3q13RN-zmPBQMrju",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qG8c82VfqpT-n07": {
+          "created": "1970-01-13T16:46:56-07:00",
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color.",
+          "tweetKey": "-K-d3q15XXWZfpsCcihL",
+          "user": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-d3q0z80nsGXaHFfmm",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "userKey": "-K-d3q0z80nsGXaHFfmm"
+        },
+        "-K-d3qHiH_6nAElwH-zF": {
+          "created": "1970-01-07T22:24:39-07:00",
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine.",
+          "tweetKey": "-K-d3q0X8vgGJsuToKcq",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHkYOtjv8VxXlRd": {
+          "created": "1970-01-03T09:29:02-07:00",
+          "text": "I have a mass of  77. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q0m0C_c_NGUuaH7",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qHoKBYwXm5A3EEQ": {
+          "created": "1970-01-14T19:22:53-07:00",
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color.",
+          "tweetKey": "-K-d3q0ogySNQFzX5p0G",
+          "user": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-d3q0TbpfXiJUn33uz",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "userKey": "-K-d3q0TbpfXiJUn33uz"
+        },
+        "-K-d3qLWaeifDEPXV3_P": {
+          "created": "1970-01-08T04:15:58-07:00",
+          "text": "Hello! My name is Darth Vader. I hail from Tatooine.",
+          "tweetKey": "-K-d3q1Jac9gbqlwnC93",
+          "user": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-d3q1IdgwiAgLa42mP",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "userKey": "-K-d3q1IdgwiAgLa42mP"
+        },
+        "-K-d3qLb53isqkLhk7sb": {
+          "created": "1970-01-01T15:21:41-07:00",
+          "text": "I have a mass of  136. My homeworld's climate is arid.",
+          "tweetKey": "-K-d3q1M1y9i8KCTweck",
+          "user": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-d3q1IdgwiAgLa42mP",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "userKey": "-K-d3q1IdgwiAgLa42mP"
+        },
+        "-K-d3qLe3CAq9tHuYZr9": {
+          "created": "1970-01-12T23:53:51-07:00",
+          "text": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color.",
+          "tweetKey": "-K-d3q1N-VuduRktjJwh",
+          "user": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-d3q1IdgwiAgLa42mP",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "userKey": "-K-d3q1IdgwiAgLa42mP"
+        }
+      }
+    },
+    "tweets": {
+      "-K-d3q0TbpfXiJUn33uz": {
+        "-K-d3q0X8vgGJsuToKcq": {
+          "created": "1970-01-14T20:33:43-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is Luke Skywalker. I hail from Tatooine."
+        },
+        "-K-d3q0m0C_c_NGUuaH7": {
+          "created": "1970-01-01T15:46:48-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  77. My homeworld's climate is arid."
+        },
+        "-K-d3q0ogySNQFzX5p0G": {
+          "created": "1970-01-02T13:27:38-07:00",
+          "fannedOut": true,
+          "text": "Please email me at Luke-Skywalker@hotmail.com. You'll know me by my fair skin color."
+        }
+      },
+      "-K-d3q0z80nsGXaHFfmm": {
+        "-K-d3q11X-uR1YV7_bGr": {
+          "created": "1970-01-11T16:58:51-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is R2-D2. I hail from Naboo."
+        },
+        "-K-d3q13RN-zmPBQMrju": {
+          "created": "1970-01-09T19:18:01-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  32. My homeworld's climate is temperate."
+        },
+        "-K-d3q15XXWZfpsCcihL": {
+          "created": "1970-01-08T03:08:22-07:00",
+          "fannedOut": true,
+          "text": "Please email me at R2-D2@hotmail.com. You'll know me by my white, blue skin color."
+        }
+      },
+      "-K-d3q17EPspzPSmYdUd": {
+        "-K-d3q195K1lX2fsWggZ": {
+          "created": "1970-01-15T15:10:17-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is C-3PO. I hail from Tatooine."
+        },
+        "-K-d3q1AQN1IijbPryEp": {
+          "created": "1970-01-14T06:35:06-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  75. My homeworld's climate is arid."
+        },
+        "-K-d3q1Enzhwu2jlRBhE": {
+          "created": "1970-01-16T20:13:10-07:00",
+          "fannedOut": true,
+          "text": "Please email me at C-3PO@hotmail.com. You'll know me by my gold skin color."
+        }
+      },
+      "-K-d3q1IdgwiAgLa42mP": {
+        "-K-d3q1Jac9gbqlwnC93": {
+          "created": "1970-01-01T21:43:10-07:00",
+          "fannedOut": true,
+          "text": "Hello! My name is Darth Vader. I hail from Tatooine."
+        },
+        "-K-d3q1M1y9i8KCTweck": {
+          "created": "1970-01-17T03:57:35-07:00",
+          "fannedOut": true,
+          "text": "I have a mass of  136. My homeworld's climate is arid."
+        },
+        "-K-d3q1N-VuduRktjJwh": {
+          "created": "1970-01-11T02:44:44-07:00",
+          "fannedOut": true,
+          "text": "Please email me at Darth-Vader@hotmail.com. You'll know me by my white skin color."
+        }
+      }
+    }
+  },
+  "users": {
+    "-K-d3q0TbpfXiJUn33uz": {
+      "email": "Luke-Skywalker@hotmail.com",
+      "mass": "77",
+      "name": "Luke Skywalker",
+      "skin_color": "fair",
+      "tweetCount": 3,
+      "username": "luke-skywalker"
+    },
+    "-K-d3q0z80nsGXaHFfmm": {
+      "email": "R2-D2@hotmail.com",
+      "mass": "32",
+      "name": "R2-D2",
+      "skin_color": "white, blue",
+      "tweetCount": 2,
+      "username": "r2-d2"
+    },
+    "-K-d3q17EPspzPSmYdUd": {
+      "email": "C-3PO@hotmail.com",
+      "mass": "75",
+      "name": "C-3PO",
+      "skin_color": "gold",
+      "tweetCount": 2,
+      "username": "c-3po"
+    },
+    "-K-d3q1IdgwiAgLa42mP": {
+      "email": "Darth-Vader@hotmail.com",
+      "mass": "136",
+      "name": "Darth Vader",
+      "skin_color": "white",
+      "tweetCount": 2,
+      "username": "darth-vader"
+    }
+  }
+}

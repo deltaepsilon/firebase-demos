@@ -145,6 +145,8 @@ var createEndpointData = function() {
 
             fake = _.pick(fake, 'posts', 'email', 'mass', 'name', 'skin_color');
 
+            fake.mass = parseInt(fake.mass);
+
             fakeRef.set(fake, function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
@@ -205,6 +207,8 @@ var createDataDesignData = function() {
                 fakeDeferred = Q.defer();
 
             promises.push(fakeDeferred.promise);
+
+            fake.mass = parseInt(fake.mass);
 
             fakeRef.set(_.pick(fake, 'email', 'mass', 'name', 'skin_color'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
@@ -381,6 +385,8 @@ var createReadingData = function() {
 
             promises.push(fakeDeferred.promise);
 
+            fake.mass = parseInt(fake.mass);
+            
             fakeRef.set(_.pick(fake, 'email', 'mass', 'name', 'skin_color', 'username'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
