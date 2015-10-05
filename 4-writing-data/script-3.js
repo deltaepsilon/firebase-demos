@@ -148,6 +148,7 @@
                  * - Create a ref to /twitterClone/userObjects/tweets/***userKey***
                  * - Push the new tweet to this ref
                  * - Nothing visual will change at this point, because you haven't fanned the tweet out to users' timeline
+                 * - We'll increment tweetCount the correct way in a later step.
                  */
                 userObjectsRef.child('tweets').child(userKey).push(tweet, function(err) {
                     if (err) {

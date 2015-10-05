@@ -143,9 +143,17 @@
 
                 userTweetBox.find('textarea').val('').focus();
 
+                /*
+                 * Create new tweet
+                 * - If the tweet is successfully pushed, create a ref to /twitterClone/users/###userKey###/tweetCount and use .transaction() to increment the tweetCount value
+                 */
                 userObjectsRef.child('tweets').child(userKey).push(tweet, function(err) {
                     if (err) {
                         console.warn('error!', err);
+                    } else {
+                        usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                            return (i || 0) + 1;
+                        });
                     }
                 });
             };
@@ -207,20 +215,14 @@
 
             /*
              * Remove tweet
-             * - Create a ref to /twitterClone/userObjects/tweets/###userKey###/###tweetKey###
-             * - Call .remove() on that ref
-             * - Nothing will happen visually, because we haven't removed the tweet from followers' timelines
-             * - If the remove is successful, query the user object and use .update() to decrement /twitterClone/users/###userKey###/tweetCount
+             * - If the remove is successful, use .transaction() to decrement /twitterClone/users/###userKey###/tweetCount
              */
             userObjectsRef.child('tweets').child(userKey).child(tweetKey).remove(function(err) {
                 if (err) {
                     console.warn('Tweet deletion error', err);
                 } else {
-                    usersRef.child(userKey).once('value', function (snap) {
-                        var user = snap.val(),
-                            userRef = snap.ref();
-
-                        userRef.update({tweetCount: Math.max(0, (user.tweetCount || 0) - 1)});
+                    usersRef.child(userKey).child('tweetCount').transaction(function(i) {
+                        return Math.max(0, (i || 0) - 1);
                     });
                 }
             });
