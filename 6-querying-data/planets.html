@@ -1,0 +1,78 @@
+<html>
+
+<head>
+    <title>Planets</title>
+</head>
+
+<body>
+    <script src="https://cdn.firebase.com/js/client/2.2.9/firebase.js"></script>
+    <script type="text/javascript">
+    var firebaseRoot = "https://demos-firebase.firebaseio.com/",
+        firebaseRef = new Firebase(firebaseRoot),
+        planetsRef = firebaseRef.child('planets'),
+        averageTempsRef = planetsRef.child('averageTemps'),
+        averageTempsData = {
+                "tatooine": 120,
+                "dagobah": 100,
+                "naboo": 85,
+                "alderaan": 80,
+                "coruscant": 75,
+                "hoth": -20
+        };
+
+        averageTempsRef.set(averageTempsData, function (err) {
+            if (err) {
+                console.warn('Error setting planets data!', err);
+            } else {
+                /*
+                 * Use averageTempsRef.orderByValue() to create a ref that's ordered by value instead of by key. Call it byValueRef
+                 * Listen to byValueRef's "value" event and note that the object that is returned isn't sorted, because one cannot sort a JSON object... JSON objects sort automatically by key
+                 * Listen to byValueRef's "child_added" event and note that the children are called in order by value. The child_added event respects the ref's orderByValue() call
+                 */
+                var byValueRef = averageTempsRef.orderByValue();
+                byValueRef.once('value', function (snap) {
+                    console.log('orderByValue() value event:', snap.val());
+                });
+
+                byValueRef.on('child_added', function (snap) {
+                    console.log('orderByValue() child_added event:', snap.key(), snap.val());
+                });
+
+                /*
+                 * Use averageTempsRef.orderByValue().startAt(85) and listen to the "child_added" event. Log out the results
+                 * Note that "child_added" is called in order, starting with Naboo at 85
+                 */
+                averageTempsRef.orderByValue().startAt(85).on('child_added', function (snap) {
+                    console.log('orderByValue().startAt(85) child_added event:', snap.key(), snap.val());
+                });
+
+                /*
+                 * Use averageTempsRef.orderByValue().endAt(85).limitToLast(3) and listen to the "child_added" event. Log out the results
+                 * Note that "child_added" is called in order, starting at Coruscant and ending at Naboo
+                 */
+                averageTempsRef.orderByValue().endAt(85).limitToLast(3).on('child_added', function (snap) {
+                    console.log('orderByValue().endAt(85).limitToLast(3) child_added event:', snap.key(), snap.val());
+                });
+
+                /*
+                 * Use averageTempsRef.orderByValue().endAt(85).limitToFirst(3) and listen to the "child_added" event. Log out the results
+                 * Note that "child_added" is called in order, starting at Hoth and ending at Alderaan. It only returns three results, never reaching Naboo.
+                 */
+                averageTempsRef.orderByValue().endAt(85).limitToFirst(3).on('child_added', function (snap) {
+                    console.log('orderByValue().endAt(85).limitToFirst(3) child_added event:', snap.key(), snap.val());
+                });
+
+                /*
+                 * Use averageTempsRef.orderByValue().endAt(85).limitToFirst(100) and listen to the "child_added" event. Log out the results
+                 * Note that "child_added" is called in order, starting at Hoth and ending at Naboo
+                 */
+                averageTempsRef.orderByValue().endAt(85).limitToFirst(100).on('child_added', function (snap) {
+                    console.log('orderByValue().endAt(85).limitToFirst(100) child_added event:', snap.key(), snap.val());
+                });
+
+            }
+        });
+    </script>
+</body>
+
+</html>
