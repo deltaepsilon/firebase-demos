@@ -1,5 +1,111 @@
 {
   "userObjects": {
+    "followers": {
+      "-K-sgXF6kcVNbkMTnm8g": {
+        "count": 3,
+        "list": {
+          "-K-sgYyklaS7Y5zijwnJ": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-sgXFwMdj_CPmLWKpq",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "-K-sgZ-PzTIEofzyxVZX": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-sgXFe_iwLRDLrMVf2",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "-K-sgZ-PzTIEofzyxVZY": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-sgXF6kcVNbkMTnm8g",
+            "name": "C-3PO",
+            "username": "c-3po"
+          }
+        }
+      },
+      "-K-sgXFWAuXU4iN4Uwv-": {
+        "count": 4,
+        "list": {
+          "-K-sgYybFfP6sf-KWsRh": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-sgXFwMdj_CPmLWKpq",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "-K-sgYzpYu40UD5Ws_cE": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-sgXFe_iwLRDLrMVf2",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "-K-sgYzpYu40UD5Ws_cF": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-sgXFWAuXU4iN4Uwv-",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "-K-sgYzpYu40UD5Ws_cG": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-sgXF6kcVNbkMTnm8g",
+            "name": "C-3PO",
+            "username": "c-3po"
+          }
+        }
+      },
+      "-K-sgXFe_iwLRDLrMVf2": {
+        "count": 4,
+        "list": {
+          "-K-sgYyqToP6ZmVZZVIx": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-sgXFwMdj_CPmLWKpq",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "-K-sgZ-ZpVheOZlp1U0J": {
+            "email": "R2-D2@hotmail.com",
+            "key": "-K-sgXFe_iwLRDLrMVf2",
+            "name": "R2-D2",
+            "username": "r2-d2"
+          },
+          "-K-sgZ-_V77tgCgAIZAi": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-sgXFWAuXU4iN4Uwv-",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "-K-sgZ-aqqNuUNcnJIi4": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-sgXF6kcVNbkMTnm8g",
+            "name": "C-3PO",
+            "username": "c-3po"
+          }
+        }
+      },
+      "-K-sgXFwMdj_CPmLWKpq": {
+        "count": 3,
+        "list": {
+          "-K-sgYyf4bvBoW7HBVv6": {
+            "email": "Darth-Vader@hotmail.com",
+            "key": "-K-sgXFwMdj_CPmLWKpq",
+            "name": "Darth Vader",
+            "username": "darth-vader"
+          },
+          "-K-sgZ-42YJnD_qtwrVL": {
+            "email": "Luke-Skywalker@hotmail.com",
+            "key": "-K-sgXFWAuXU4iN4Uwv-",
+            "name": "Luke Skywalker",
+            "username": "luke-skywalker"
+          },
+          "-K-sgZ-42YJnD_qtwrVM": {
+            "email": "C-3PO@hotmail.com",
+            "key": "-K-sgXF6kcVNbkMTnm8g",
+            "name": "C-3PO",
+            "username": "c-3po"
+          }
+        }
+      }
+    },
     "following": {
       "-K-sgXF6kcVNbkMTnm8g": {
         "-K-sgXIpLSHNMVKFe3Qe": {

@@ -386,7 +386,7 @@ var createReadingData = function() {
             promises.push(fakeDeferred.promise);
 
             fake.mass = parseInt(fake.mass);
-            
+
             fakeRef.set(_.pick(fake, 'email', 'mass', 'name', 'skin_color', 'username'), function(err) {
                 return err ? fakeDeferred.reject(err) : fakeDeferred.resolve();
             });
@@ -414,8 +414,8 @@ var createReadingData = function() {
             });
 
             _.each(follows, function(followed) {
-                 var followingDeferred = Q.defer(),
-                     followersDeferred = Q.defer();
+                var followingDeferred = Q.defer(),
+                    followersDeferred = Q.defer();
 
                 promises.push(followingDeferred.promise);
                 promises.push(followersDeferred.promise);
@@ -500,10 +500,22 @@ var createReadingData = function() {
             readingDataRef.on('value', function(snap) {
                 var data = snap.val();
 
-                delete data.userObjects.followers;
+                fs.writeJSON('./4-writing-data/data-2.json', data, function(err) {
+                    if (err) {
+                        deferred.reject(err);
+                    } else {
+                        delete data.userObjects.followers;
 
-                fs.writeJSON('./3-reading-data/data.json', data, function(err) {
-                    return err ? deferred.reject(err) : deferred.resolve();
+                        fs.writeJSON('./4-writing-data/data-1.json', data, function(err) {
+                            if (err) {
+                                deferred.reject(err);
+                            } else {
+                                fs.writeJSON('./3-reading-data/data-3.json', data, function(err) {
+                                    return err ? deferred.reject(err) : deferred.resolve();
+                                });
+                            }
+                        });
+                    }
                 });
 
             });
